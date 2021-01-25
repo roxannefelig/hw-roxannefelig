@@ -1,8 +1,8 @@
 ---
-title: "HW1_Data_Exploring"
+title: "HW1_Data_Exploring.md"
 author: "Roxanne Felig"
 date: "1/24/2021"
-output: html_document
+output: markdown_file
 ---
 
 ```{r setup, include=FALSE}
