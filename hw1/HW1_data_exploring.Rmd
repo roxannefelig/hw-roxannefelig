@@ -20,7 +20,7 @@ View(HW1data)
 
 ## Viewing Data Structure
 
-```{r penguins structure}
+```{r penguins structure, echo=TRUE}
 str(HW1data)
 nrow(HW1data)
 ncol(HW1data)
