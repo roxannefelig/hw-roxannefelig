@@ -92,8 +92,8 @@ ggplot(gapminder) +
 gapminder_noOceania <- filter(gapminder, continent != "Oceania")
 
 ggplot(gapminder_noOceania) +
-  aes(gdpPercap, lifeExp) +
-  facet_wrap(~ continent) +
+  aes(x=gdpPercap, y= lifeExp, size=pop) +
+  facet_grid(~ continent, scales = "free") +
   geom_point(alpha = 0.2) +
   scale_x_log10(labels = scales::comma_format())
 ```
