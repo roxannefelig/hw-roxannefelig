@@ -199,14 +199,18 @@ Here's the number of people having a certain hair colour from a sample of 592 pe
   count(Hair, wt = n))
 str(hair)
 hair$Hair<-as.factor(hair$Hair)
+
+
+str(hair)
 ```
 
 Fix the following bar plot so that it shows these counts.
-###stopping here
+
 ```{r}
-ggplot(hair) +
-  aes(x=Hair) +
-  geom_bar()
+ggplot(hair, aes(x=Hair, y=n)) +
+  geom_bar(stat="identity")+
+  ylab("Count")
+
 ```
 
 ## Exercise 7: Tiling
