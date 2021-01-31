@@ -227,7 +227,8 @@ _Hint:_ What's the title of this exercise?
 
 ```{r}
 ggplot(hair_eye, aes(Hair, Eye)) +
-  geom_point(aes(colour = n))
+  geom_point(aes(colour = n))+
+  geom_tile(aes(fill=n))
 ```
 
 By the way, `geom_count()` is like `geom_bar()`: it counts the number of overlapping points, but plots a point instead of a column.
