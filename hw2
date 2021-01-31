@@ -81,6 +81,8 @@ ggplot(gapminder) +
   scale_x_log10(label=comma) +
   facet_grid(~continent)
 ```
+## Homework statrting here
+
 ### 3(b) Bubble Plot
 
 - Put the plots in one row, and free up the axes (let them have different scales).
