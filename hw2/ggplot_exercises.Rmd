@@ -94,8 +94,9 @@ gapminder_noOceania <- filter(gapminder, continent != "Oceania")
 ggplot(gapminder_noOceania) +
   aes(x=gdpPercap, y= lifeExp, size=pop) +
   facet_grid(~ continent, scales = "free") +
-  geom_point(alpha = 0.2) +
-  scale_x_log10(labels = scales::comma_format())
+  geom_point(alpha = 0.2, shape=21) +
+  scale_x_log10(labels = scales::comma_format())+
+  scale_size_area()
 ```
 
 A list of shapes can be found [at the bottom of the `scale_shape` documentation](https://ggplot2.tidyverse.org/reference/scale_shape.html).
