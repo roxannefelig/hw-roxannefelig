@@ -183,8 +183,11 @@ mtcars2 <- mutate(mtcars, transmission = if_else(am == 0, "automatic", "manual")
 mtcars$cyl<- as.factor(mtcars$cyl)
 ggplot(mtcars2) +
   aes(cyl) +
-  geom_bar(aes(color = transmission, fill=transmission))+
-  scale_y_continuous(labels = scales::percent)
+  geom_bar(aes(color = transmission, fill=transmission), position="dodge")+
+  scale_y_continuous(labels = scales::percent)+
+  scale_fill_discrete(name="Transmission")+
+  guides(color=FALSE)
+  
 ```
 
 ### 6(b) Bar heights already calculated
