@@ -161,12 +161,10 @@ ggplot(americas) +
 We're starting with the same plot as above, but instead of the points + boxplot, try a ridge plot instead using `ggridges::geom_density_ridges()`, and adjust the `bandwidth`.
 
 ```{r, fig.width = 5, fig.height = 2}
-ggplot(americas) +
-  aes(country, lifeExp) +
-  geom_point() +
-  geom_boxplot()
+ggplot(americas) + 
+  aes(x=lifeExp, y=country) +
+  geom_density_ridges(bandwidth=1)
 ```
-
 ## Exercise 6: Bar plot madness
 
 ### 6(a) Colour and stacking madness
