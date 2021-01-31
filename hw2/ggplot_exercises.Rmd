@@ -171,7 +171,7 @@ ggplot(americas) +
 
 ### 6(a) Colour and stacking madness
 
-- Change the following plot so that it shows _proportion_ on the y-axis, not count. HAVING ISSUES HERE. I set it to percentages but the percent values are very high
+- Change the following plot so that it shows _proportion_ on the y-axis, not count. HAVING ISSUES HERE. I set it to percentages but the percent values are very high. 
 - Change the x-axis so that it doesn't appear to be continuous.
   - Hint: Transform the variable!
 - Also change the colors of the bar fills, as well as the lines.
