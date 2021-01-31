@@ -114,7 +114,7 @@ ggplot(gapminder) +
 
 
 ## Exercise 4: Walking caribou
-
+###I am having trouble with this 
 The following mock data set marks the (x,y) position of a caribou at four time points. 
 
 - Fix the plot below so that it shows the **path** of the caribou.
@@ -132,8 +132,8 @@ caribou_path <-
   )
 
 ggplot(caribou_path) +
-  aes(x, y) + 
-  geom_line()
+  aes(x,y) + 
+  geom_line() 
 ```
 
 ## Exercise 5: Life expectancies in Africa
@@ -151,9 +151,9 @@ americas <- filter(gapminder, continent == "Americas")
 
 ggplot(americas) + 
   aes(country, lifeExp) +
-  geom_point() +
   geom_boxplot() +
-  scale_x_discrete()
+   geom_point() +
+  scale_x_discrete(guide = guide_axis(n.dodge=3))
 ```
 
 ### 5(b) Ridgeplots
