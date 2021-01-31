@@ -197,13 +197,15 @@ Here's the number of people having a certain hair colour from a sample of 592 pe
 ```{r}
 (hair <- as_tibble(HairEyeColor) %>% 
   count(Hair, wt = n))
+str(hair)
+hair$Hair<-as.factor(hair$Hair)
 ```
 
 Fix the following bar plot so that it shows these counts.
-
+###stopping here
 ```{r}
 ggplot(hair) +
-  aes(Hair, n) +
+  aes(x=Hair) +
   geom_bar()
 ```
 
