@@ -171,7 +171,7 @@ ggplot(americas) +
 
 ### 6(a) Colour and stacking madness
 
-- Change the following plot so that it shows _proportion_ on the y-axis, not count. HAVING ISSUES HERE
+- Change the following plot so that it shows _proportion_ on the y-axis, not count. HAVING ISSUES HERE. I set it to percentages but the percent values are very high
 - Change the x-axis so that it doesn't appear to be continuous.
   - Hint: Transform the variable!
 - Also change the colors of the bar fills, as well as the lines.
@@ -183,8 +183,11 @@ mtcars2 <- mutate(mtcars, transmission = if_else(am == 0, "automatic", "manual")
 mtcars$cyl<- as.factor(mtcars$cyl)
 ggplot(mtcars2) +
   aes(cyl) +
-  geom_bar(aes(color = transmission, fill=transmission))+
-  scale_y_continuous(labels = scales::percent)
+  geom_bar(aes(color = transmission, fill=transmission), position="dodge")+
+  scale_y_continuous(labels = scales::percent)+
+  scale_fill_discrete(name="Transmission")+
+  guides(color=FALSE)
+  
 ```
 
 ### 6(b) Bar heights already calculated
