@@ -270,7 +270,7 @@ ggplot(gapminder)+
 __Exercise 3__: 
 Repeat Exercise 1, but omit the `geom_point()` layer. 
 Does the line still show up, even though the data aren't shown? Why or why not?
-``` {r exercise 2}
+``` {r exercise 3}
 ggplot(gapminder)+
   aes(x=year, y=lifeExp, color=continent)+
   geom_smooth(method='lm', se=FALSE)
@@ -283,6 +283,14 @@ Repeat Exercise 1, but add a **common regression line** that combines all contin
 Color this line **black**.
 How does this common line differ from the continent-specific lines?
 
+``` {r exercise 4}
+ggplot(gapminder)+
+  aes(x=year, y=lifeExp)+
+  geom_smooth(method='lm', se=FALSE, color='black')+
+  geom_point()
+
+## in this, we can't tell how each country differs, we just see an average of all of their regression slopes.
+```
 __Exercise 4__: 
 Make a plot of `year` (x) vs `lifeExp` (y), faceted by continent. 
 Then, fit a smoother through the data for each continent, without the error bars. Choose a span that you feel is appropriate.
