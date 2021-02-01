@@ -241,9 +241,19 @@ __Exercise 1__:
 Make a plot of `year` (x) vs `lifeExp` (y), with points colored by continent. 
 Then, to that same plot, fit a **straight** regression line to each continent.
 
+```{r exercise 1}
+ggplot(gapminder)+
+  aes(x=year, y=lifeExp, color=continent)+
+  geom_smooth(method='lm')
+```
+
 __Exercise 1b__: 
 Repeat Exercise 1, but remove the error band from around the regression line.
-
+```{r exercise 2}
+ggplot(gapminder)+
+  aes(x=year, y=lifeExp, color=continent)+
+  geom_smooth(method='lm', se=FALSE)
+```
 __Exercise 2__: 
 Repeat Exercise 1, but switch the _regression line_ and _geom\_point_ layers. 
 How is this plot different from that of Exercise 1?
