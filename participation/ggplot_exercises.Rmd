@@ -270,6 +270,13 @@ ggplot(gapminder)+
 __Exercise 3__: 
 Repeat Exercise 1, but omit the `geom_point()` layer. 
 Does the line still show up, even though the data aren't shown? Why or why not?
+``` {r exercise 2}
+ggplot(gapminder)+
+  aes(x=year, y=lifeExp, color=continent)+
+  geom_smooth(method='lm', se=FALSE)
+
+## yes, the lines show up because we have indicated what variables to use, we just have not asked ggplot to plot each specific data point.
+```
 
 __Exercise 4__:
 Repeat Exercise 1, but add a **common regression line** that combines all continents.
