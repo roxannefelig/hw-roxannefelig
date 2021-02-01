@@ -244,6 +244,7 @@ Then, to that same plot, fit a **straight** regression line to each continent.
 ```{r exercise 1}
 ggplot(gapminder)+
   aes(x=year, y=lifeExp, color=continent)+
+  geom_point()+
   geom_smooth(method='lm')
 ```
 
@@ -252,12 +253,20 @@ Repeat Exercise 1, but remove the error band from around the regression line.
 ```{r exercise 2}
 ggplot(gapminder)+
   aes(x=year, y=lifeExp, color=continent)+
+  geom_point()+
   geom_smooth(method='lm', se=FALSE)
 ```
 __Exercise 2__: 
 Repeat Exercise 1, but switch the _regression line_ and _geom\_point_ layers. 
 How is this plot different from that of Exercise 1?
+``` {r exercise 2}
+ggplot(gapminder)+
+  aes(x=year, y=lifeExp, color=continent)+
+  geom_smooth(method='lm', se=FALSE)+ 
+  geom_point()
 
+## in this, the points are on top of the lines.
+```
 __Exercise 3__: 
 Repeat Exercise 1, but omit the `geom_point()` layer. 
 Does the line still show up, even though the data aren't shown? Why or why not?
