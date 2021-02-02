@@ -1,8 +1,15 @@
-# Homework 1
+<!-- Great work. Just a few comments below! -->
+
+<!-- After you merge a branch back into master, delete the branch to keep your repository tidy. -->
+
+# Homework Repository
 
 **Repository Information**
 
-This is template repository for hosting and posting my (Roxanne's) homework assignments for Programming with Data. Currently, there are two main components of my repository:
+This is a repository for hosting and posting my (Roxanne's) homework assignments for Programming with Data. Currently, there are two main components of my repository:
+
+<!-- Put a blank line between paragraphs, headings, starts and ends of lists, etc., to ensure it formats correctly when rendered. -->
+
 1. Homework Assignments
 2. Participation
 
