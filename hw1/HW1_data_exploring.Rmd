@@ -5,6 +5,8 @@ date: "1/24/2021"
 output: html_document
 ---
 
+<!-- You have a couple of different versions of your files here. Please be sure to only keep the final version and its md/html outputs when you finish an assignment. -->
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
