@@ -165,6 +165,7 @@ Example: Suppose Canada's 1952 life expectancy was mistakenly entered as 68.8 in
 gapminder %>%
   mutate(lifeExp=if_else(country=="Canada"& year==1952, true=70, false=lifeExp))
 
+
 ```
 
 Your turn: 
