@@ -164,11 +164,9 @@ Example: Suppose Canada's 1952 life expectancy was mistakenly entered as 68.8 in
 ```{r}
 gapminder %>%
   mutate(lifeExp=if_else(country=="Canada"& year==1952, true=70, false=lifeExp))
-
-
 ```
 
-Your turn: 
+__Your turn:__ 
 Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma.
 (Hint: use the `paste()` function with the `sep=", "` argument).
 
