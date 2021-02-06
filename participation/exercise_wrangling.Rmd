@@ -20,6 +20,7 @@ Load the `gapminder` and `tidyverse` packages.
 # load your packages here:
 library(gapminder)
 library(tidyverse)
+library(dplyr)
 ```
   testing  
 
@@ -169,14 +170,14 @@ gapminder %>%
 __Your turn:__ 
 Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma.
 (Hint: use the `paste()` function with the `sep=", "` argument).
-
+###stuck on this 
 ```{r}
 gapminder %>% 
+  gapminder$cc<-paste("country","continent", sep = ",")
   
 ```
 
 These functions we've seen are called __vectorized functions__—they are designed to work with vectors and do their computation on each element of the vector(s).
-
 
 # Back to the Big Group
 
@@ -219,9 +220,8 @@ Use `psych::bfi` and mean center the personality scales.
 ```{r}
 psych::bfi %>%
   as_tibble(rownames = ".id") %>% 
-  FILL_THIS_IN(FILL_THIS_IN)
+  mutate(across(where(is.numeric), ~ .x - mean(.x, na.rm = TRUE)))
 ```
-
 
 # `group_by()` and `summarize()`
 
