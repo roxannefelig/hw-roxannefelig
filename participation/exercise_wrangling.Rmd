@@ -11,6 +11,9 @@ output:
 knitr::opts_chunk$set(error = TRUE)
 ```
 
+
+progdata::tutorial_wrangle()
+
 # Intro to `dplyr` syntax
 
 Load the `gapminder` and `tidyverse` packages.
