@@ -47,7 +47,7 @@ Hint: you might find the max() function useful helpful
 
 ```{r maxGDP}
 gapminder %>%
-  filter(country) %>% 
+  group_by(country) %>% 
   max(gdpPercap)
 
 ```
