@@ -170,10 +170,10 @@ gapminder %>%
 __Your turn:__ 
 Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma.
 (Hint: use the `paste()` function with the `sep=", "` argument).
-###stuck on this 
+
 ```{r}
 gapminder %>% 
-  gapminder$cc<-paste("country","continent", sep = ",")
+  mutate(cc=(paste(country,continent, sep = ",")))
   
 ```
 
@@ -271,8 +271,6 @@ gapminder %>%
 
 When you use `group_by()` with `mutate()`, always `ungroup()` at the end so that future operations happen on the whole dataset rather than by group!
 
-
-
 # Exercises for grouped data frames
 
 Let's do some practice with grouping (and ungrouping) and summarizing data frames!
@@ -280,12 +278,12 @@ Let's do some practice with grouping (and ungrouping) and summarizing data frame
 1. 
 (a) What's the minimum life expectancy for each continent and each year? 
 (b) Add the corresponding country to the tibble, too. 
-(c) Arrange by min life expectancy.
+(c) Arrange by min life expectancy. ##trouble with arranging
 
 ```{r}
 gapminder %>% 
-  group_by(FILL_THIS_IN) %>% 
-  FILL_THIS_IN(min_life = min(lifeExp))
+  group_by(continent, year) %>% 
+  mutate (min_life = min(lifeExp))
 ```
 
 
