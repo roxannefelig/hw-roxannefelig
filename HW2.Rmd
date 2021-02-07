@@ -71,6 +71,7 @@ Make a summary table of descriptive statistics for these variables using summari
 Include whatever staistics you feel appropriate (mean, median sd, range, etc.).
 Make a scatterplot of these variables using ggplot().
 
+__when i tried to pipe in the graph, it said it couldn't find the variables__
 ```{r dataset exploring}
 palmerpenguins::penguins %>% 
   select(bill_length_mm, flipper_length_mm) %>% 
