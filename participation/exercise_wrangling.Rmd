@@ -303,13 +303,14 @@ psych::bfi %>%
 You can do this more compactly with the `c_across()` function.
 this function selects columns the same way across does `across()`, then puts the matching values together with `c()`.
 
+##keep running into an error when trying to run the code below. it is something to do with the O_mean line, but I cannot trouble shoot.
 ```{r}
 psych::bfi %>%
   as_tibble(rownames = ".id") %>% 
   select(.id, education, A1:A5, O1:O5) %>% 
   rowwise() %>% 
   mutate(A_mean = mean(c_across(A1:A5), na.rm = TRUE),
-         O_mean = mean(c_across(starts_with("O"), na.rm = TRUE))) %>% 
+         O_mean = mean(c_across(O1:O5), na.rm = TRUE)) %>% 
   ungroup()
 ```
 
@@ -317,7 +318,20 @@ Now compute mean scores for the other Big Five traits, as well as
 `sd` and `min` scores for each person.
 
 ```{r}
-
+psych::bfi %>%
+  as_tibble(rownames = ".id") %>% 
+  select(.id, education, C1:C5, E1:E5, N1:N5) %>% 
+  rowwise() %>% 
+  mutate(C_mean = mean(c_across(C1:C5), na.rm = TRUE),
+         E_mean = mean(c_across(E1:E5), na.rm = TRUE),
+         N_mean = mean(c_across(N1:N5), na.rm = TRUE),
+         sd_c = sd(c_across(C1:C5)),
+          sd_E = sd(c_across(E1:E5)),
+          sd_N = sd(c_across(N1:N5)),
+         min_c=min(c_across(C1:C5)),
+         min_e=min(c_across(E1:E5)),
+         min_N=min(c_across(N1:N5)))%>%
+ungroup()
 ```
 
 3.
