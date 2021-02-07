@@ -338,7 +338,14 @@ ungroup()
 Use your data from Question 2 to compute the **mean** score for each Big Five trait **for each education level**
 
 ```{r}
-
+psych::bfi %>%
+  group_by(education) %>% 
+  mutate(O_mean = mean(c_across(O1:O5), na.rm = TRUE),
+         C_mean = mean(c_across(C1:C5), na.rm = TRUE),
+         E_mean = mean(c_across(E1:E5), na.rm = TRUE),
+         A_mean = mean(c_across(A1:A5), na.rm = TRUE),
+         N_mean = mean(c_across(N1:N5), na.rm = TRUE)) %>% 
+  ungroup()
 ```
 
 
