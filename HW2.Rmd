@@ -72,7 +72,14 @@ Include whatever staistics you feel appropriate (mean, median sd, range, etc.).
 Make a scatterplot of these variables using ggplot().
 
 ```{r dataset exploring}
-
-
+palmerpenguins::penguins %>% 
+  select(bill_length_mm, flipper_length_mm) %>% 
+  summarize(
+    mean_bill=mean(bill_length_mm, na.rm=TRUE),
+    sd_bill=sd(bill_length_mm, na.rm=TRUE),
+    mean_flip=mean(flipper_length_mm, na.rm=TRUE),
+    sd_flip=sd(flipper_length_mm, na.rm=TRUE))
+palmerpenguins::penguins %>% 
+  ggplot(aes(x=bill_length_mm,y=flipper_length_mm)) +geom_point()
 
 ```
