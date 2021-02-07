@@ -35,9 +35,19 @@ gapminder %>%
 ###1.3 Make a new variable in gapminder for the change in life expectancy from the previous measurement. Filter this table to show all of the entries that have experienced a drop in life expectancy.
 Hint: you might find the lag() or diff() functions useful.
 
+__stuck here__
 ```{r new variable}
 gapminder %>%
-  mutate(lifeExp_change=diff(lifeExp)
+  mutate(lifeExp_change=diff(lifeExp))
 
 ```
 
+###1.4 Filter gapminder so that it shows the max GDP per capita experienced by each country.
+Hint: you might find the max() function useful helpful
+
+```{r maxGDP}
+gapminder %>%
+  filter(country) %>% 
+  max(gdpPercap)
+
+```
