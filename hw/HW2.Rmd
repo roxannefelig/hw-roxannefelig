@@ -23,3 +23,14 @@ library(dplyr)
 gapminder %>%
   filter(country==c("Argentina","Chile","Germany") & year>1969 & year<1980)
 ```
+
+###1.2 Use the pipe operator %>% to select “country” and “gdpPercap” from your filtered dataset in 1.1.
+
+```{r select}
+gapminder %>%
+  filter(country==c("Argentina","Chile","Germany") & year>1969 & year<1980) %>% 
+  select(country,gdpPercap)
+
+```
+
+
