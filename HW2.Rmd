@@ -47,11 +47,11 @@ gapminder %>%
 
 ###1.4 Filter gapminder so that it shows the max GDP per capita experienced by each country.
 Hint: you might find the max() function useful helpful
-__stuck here__
+
 ```{r maxGDP}
 gapminder %>%
-  arrange(country) %>% 
-  max(gdpPercap)
+  group_by(country) %>% 
+  summarize(maxgdp=max(gdpPercap))
   
 ```
 
@@ -82,5 +82,16 @@ palmerpenguins::penguins %>%
     sd_flip=sd(flipper_length_mm, na.rm=TRUE))
 palmerpenguins::penguins %>% 
   ggplot(aes(x=bill_length_mm,y=flipper_length_mm)) +geom_point()
+
+```
+
+###2.2 Pick one categorical variable and one quantitative variable to explore.
+Make a summary table giving the sample size (hint: n()) and descriptive statistics for the quantitative variable by group.
+Make one or more useful plots to visualize these variables.
+
+
+```{r categorical}
+
+
 
 ```
