@@ -37,7 +37,7 @@ Hint: you might find the lag() or diff() functions useful.
 
 ```{r new variable}
 gapminder %>%
-  mutate(lifeExp_change=diff(lifeExp, lag=1))
+  mutate(lifeExp_change=diff(lifeExp)
 
 ```
 
