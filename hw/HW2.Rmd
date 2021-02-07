@@ -9,7 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ## Assignment 02: Explore gapminder and use dplyr
 
 ```{r load packages}
@@ -24,12 +23,3 @@ library(dplyr)
 gapminder %>%
   filter(country==c("Argentina","Chile","Germany") & year>1969 & year<1980)
 ```
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
