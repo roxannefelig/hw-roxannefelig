@@ -50,7 +50,16 @@ Hint: you might find the max() function useful helpful
 
 ```{r maxGDP}
 gapminder %>%
-  group_by(country) %>% 
+  arrange(country) %>% 
   max(gdpPercap)
+  
+```
+
+### 1.5 Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggplot2, without defining a new variable. That is, after filtering the gapminder data set, pipe it directly into the ggplot() function. In your plot, put GDP per capita on a log scale.
+
+``` {r plot}
+gapminder %>%
+  select(gdpPercap,lifeExp) %>% 
+  ggplot(aes(x=gdpPercap,y=lifeExp)) +geom_point() + scale_x_log10()
 
 ```
