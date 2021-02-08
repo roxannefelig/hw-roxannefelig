@@ -3,9 +3,9 @@ title: "knitted hw2"
 author: "Roxanne Felig"
 date: "2/8/2021"
 output:
-    html_document: default
+    html_document:
+        theme: paper
     github_document: default
-    theme: paper
 ---
 
 ```{r setup, include=FALSE}
