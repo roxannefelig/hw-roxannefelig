@@ -89,9 +89,22 @@ palmerpenguins::penguins %>%
 Make a summary table giving the sample size (hint: n()) and descriptive statistics for the quantitative variable by group.
 Make one or more useful plots to visualize these variables.
 
-
 ```{r categorical}
+str(palmerpenguins::penguins)
+palmerpenguins::penguins %>% 
+  select(island, bill_length_mm) %>% 
+  summarize(n=n(),
+            mean_bill=mean(bill_length_mm, na.rm=TRUE),
+            sd_bill=sd(bill_length_mm, na.rm=TRUE)) 
 
+palmerpenguins::penguins %>% 
+  select(island, bill_length_mm) %>% 
+  ggplot(aes(x=island,y=bill_length_mm)) +
+  geom_bar(stat='identity')
 
+```
 
+```{r bonus}
+filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
+##the first code skipped over several years by searching for anywhere where Rwanda was listed first, followed by Afghanistan.
 ```
