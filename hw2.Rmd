@@ -60,6 +60,7 @@ gapminder %>%
 
 ``` {r plot}
 gapminder %>%
+  filter(country=='Canada') %>% 
   select(gdpPercap,lifeExp) %>% 
   ggplot(aes(x=gdpPercap,y=lifeExp)) +geom_point() + scale_x_log10()
 
