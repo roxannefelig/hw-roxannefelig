@@ -151,3 +151,18 @@ dat_bfi %>%
   )
 
 ## 5. Reverse code the -1 items, as indicated in psychTools::bfi.dictionary or psych::bfi.key
+
+dict<-as_tibble(psychTools::bfi.dictionary, rownames = ".id")
+
+reversed <- dict %>%
+  filter(Keying == -1) %>%
+  pull(.id)
+
+dat_bfi %>%
+  mutate(
+    across(all_of(reversed),
+           ~ recode(.x, "6" = 1, "5" = 2, "4" = 3, "3" = 4, "2" = 5, "1" = 6),
+           .names = "{.col}r")
+  )
+
+
