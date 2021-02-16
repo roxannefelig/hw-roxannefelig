@@ -9,7 +9,6 @@ key_bfi <- psychTools::bfi.keys
 
 head(dat_bfi)
 
-
 # ==================================================
 
 # getting rid of rownames
@@ -99,8 +98,6 @@ dat_bfi %>%
   select(.id, gender, education)
 
 
-
-
 # reverse coding variables
 print(dict, n = 30)
 
@@ -131,7 +128,14 @@ dat_bfi %>%
 # Now you try:
 
 ## 1. Use the psychTools::bfi (or psych::bfi) data
+
+dat_bfi<-psych::bfi
+
 ## 2. Recode gender to 'man', 'women', '(no response)'
+dat_bfi %>%
+  mutate(
+    gender = recode(gender, "1" = "man", "2" = "woman", .missing= "no response")
+  )
 ## 3. Recode education to "Some HS", "HS", "Some College", "College", "Graduate degree", "(no response)"
 ## 4. Compute a new variable `hs_grad` with levels "no" and "yes"
 ## 5. Reverse code the -1 items, as indicated in psychTools::bfi.dictionary or psych::bfi.key
