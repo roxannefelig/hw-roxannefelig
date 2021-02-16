@@ -145,4 +145,9 @@ dat_bfi %>%
 
 dat_bfi
 ## 4. Compute a new variable `hs_grad` with levels "no" and "yes"
+dat_bfi %>%
+  mutate(
+    hs_grad = recode(education,"1"= "no", .default = "yes", .missing = "no response")
+  )
+
 ## 5. Reverse code the -1 items, as indicated in psychTools::bfi.dictionary or psych::bfi.key
