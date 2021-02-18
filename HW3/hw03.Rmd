@@ -1,7 +1,11 @@
 ---
-output: html_document
-editor_options: 
-  chunk_output_type: console
+title: "HW3"
+author: "Roxanne Felig"
+date: "2/8/2021"
+output:
+    html_document:
+        theme: paper
+    github_document: default
 ---
 # Homework 03
 
@@ -11,6 +15,17 @@ The dataset includes data from **students** and **non-students**.
 ```{r}
 dictionary <- readr::read_csv("green_dictionary.csv")
 green_data <- readr::read_csv("green_data.csv")
+```
+
+```{r view files}
+View(dictionary)
+View(green_data)
+```
+
+
+```{r question 1}
+str(green_data)
+
 ```
 
 For your assignment, do the following.
