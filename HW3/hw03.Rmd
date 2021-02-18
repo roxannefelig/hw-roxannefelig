@@ -13,20 +13,45 @@ You will analyze data looking at the relationship between **green reputation** a
 The dataset includes data from **students** and **non-students**.
 
 ```{r}
-dictionary <- readr::read_csv("green_dictionary.csv")
-green_data <- readr::read_csv("green_data.csv")
+dictionary <- readr::read_csv("/Users/roxannefelig/Desktop/progdata/hw-roxannefelig/HW3/green_dictionary.csv")
+green_data <- readr::read_csv("/Users/roxannefelig/Desktop/progdata/hw-roxannefelig/HW3/green_data.csv")
 ```
 
 ```{r view files}
 View(dictionary)
 View(green_data)
+library(tidyverse)
+library(dplyr)
+library(psych)
+library(naniar)
+library(reshape2)
 ```
 
 
 ```{r question 1}
 str(green_data)
+summary(green_data) #I notice that some missing values are coded as NA while others are coded as -99, so I'm going to re-code them
 
+data<-green_data %>% 
+  mutate_at(vars(comp1:student),
+         ~ifelse(. == -99, NA, .)
+  )
+
+summary(data) #now we see that the min values for variables are 1, not -99.
+
+plot(data$green1)
+
+melt_data<-melt(data) #collapses data to one column
+View(melt_data)
+#plotting using the melted data and the facet wrap will allow us to see histograms for each scale item, and the frequency of each response choice.
+
+ggplot(melt_data)+
+  aes(x=value)+
+  geom_histogram()+
+  facet_wrap(~variable, 
+             scales="free")
 ```
+
 
 For your assignment, do the following.
 
