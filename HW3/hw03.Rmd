@@ -29,8 +29,10 @@ library(reshape2)
 
 
 ```{r question 1}
+###1. Inspect the item responses (e.g., with graphs or by summarizing distinct values). Is anything unusual?
+
 str(green_data)
-summary(green_data) #I notice that some missing values are coded as NA while others are coded as -99, so I'm going to re-code them
+summary(green_data) #I notice that some missing values are coded as NA while others are coded as -99, so I'm going to re-code the -99s as NAs.
 
 data<-green_data %>% 
   mutate_at(vars(comp1:student),
@@ -39,10 +41,9 @@ data<-green_data %>%
 
 summary(data) #now we see that the min values for variables are 1, not -99.
 
-plot(data$green1)
-
 melt_data<-melt(data) #collapses data to one column
 View(melt_data)
+
 #plotting using the melted data and the facet wrap will allow us to see histograms for each scale item, and the frequency of each response choice.
 
 ggplot(melt_data)+
@@ -53,12 +54,31 @@ ggplot(melt_data)+
 ```
 
 
-For your assignment, do the following.
+```{r question 2}
+### 2. Compute total scores for the four scales. Recode variables as needed.
 
-  1. Inspect the item responses (e.g., with graphs or by summarizing distinct values). 
-     Is anything unusual?
-  2. Compute total scores for the four scales. 
-     Recode variables as needed.
+#First, we need to reverse code items as indicated in the dictionary. The reverse coded items are green2,comp6:comp10, intel7:intel10,and open7:open10. 
+#two ways to reverse code shown below:
+
+reversed1<- c("green2", "comp6", "comp7","comp8","comp9","comp10","intel7",
+             "intel8","intel9","intel10","open7","open8","open9","open10")
+
+reversed2 <- dictionary %>%
+  filter(Keying == -1) %>%
+  pull(Item)     
+     
+data %>%
+  mutate(
+    across(all_of(reversed),
+           ~ recode(.x, "5" = 1, "4" = 2, "3" = 3, "2" = 4, "1" = 5),
+           .names = "{.col}r")
+  )
+
+#total scores
+summary(data)
+
+
+```     
   3. Rescale the variables so that they go from 0-100 instead of the original range.
      Name the recaled variables `*_pomp`.
   4. Make plots that illustrate the distributions of the 4 POMP-scored variables.
