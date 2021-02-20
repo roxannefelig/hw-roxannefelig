@@ -76,11 +76,25 @@ data %>%
 
 #total scores
 summary(data)
+View(data)
 
+data %>%
+  rowwise() %>% 
+  mutate(
+    .id = id,
+    green_total = mean(c_across(green1:green5), na.rm = TRUE),
+    comp_total = mean(c_across(comp1:comp10), na.rm = TRUE),
+    intel_total = mean(c_across(intel1:intel10), na.rm = TRUE),
+    open_total = mean(c_across(open1:open10), na.rm = TRUE),
+    .before = everything()
+  )
+```   
 
-```     
-  3. Rescale the variables so that they go from 0-100 instead of the original range.
-     Name the recaled variables `*_pomp`.
+```{r question 3}  
+##3 Rescale the variables so that they go from 0-100 instead of the original range.Name the rescaled variables `*_pomp`.
+     
+```
+
   4. Make plots that illustrate the distributions of the 4 POMP-scored variables.
   5. Make scatterplots showing the relationships between **green reputation** and each personality trait.
      Include trend lines for **students** and **non-students**.
