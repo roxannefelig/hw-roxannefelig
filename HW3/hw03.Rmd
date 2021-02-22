@@ -219,10 +219,14 @@ green_open <- ggplot(q5_data) +
   geom_smooth(aes(group=student))
 
 ```
+
+The relationship between green reputation and compassion seems to be similar for students and non-students. Green reputation and intellectual curiosity show different patters for students versus non-students; students show a positive relationship, with non-students showing a slightly negative or possibly non-relationship. For green reputation and openness, some student outliers who scored zero on green reputation seem to be impacting the trend line. It seems like students and non-students follow a similar pattern here, though.
+     
      
 ``` {r question 6}     
 ## 6. Compare **green reputation** for students and non-students using a **rainfall plot** (bar + density + data points).
   
+
   
 ```  
   
