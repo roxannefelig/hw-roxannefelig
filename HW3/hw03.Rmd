@@ -72,7 +72,7 @@ reversed2 <- dictionary %>%
      
 data %>%
   mutate(
-    across(all_of(reversed),
+    across(all_of(reversed2),
            ~ recode(.x, "5" = 1, "4" = 2, "3" = 3, "2" = 4, "1" = 5),
            .names = "{.col}r")
   )
