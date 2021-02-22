@@ -25,6 +25,8 @@ library(dplyr)
 library(psych)
 library(naniar)
 library(reshape2)
+install.packages("scales")
+library(scales)
 ```
 
 
@@ -80,7 +82,7 @@ View(data)
 
 #we will use the row wise function for this so that we can create total scores for each person.
 
-data %>%
+new_data<-data %>%
   rowwise() %>% 
   mutate(
     .id = id,
@@ -89,14 +91,44 @@ data %>%
     intel_total = mean(c_across(intel1:intel10), na.rm = TRUE),
     open_total = mean(c_across(open1:open10), na.rm = TRUE),
     .before = everything()
-  )
+  ) 
+
+summary(new_data)
 ```   
 
 ```{r question 3}  
 ##3 Rescale the variables so that they go from 0-100 instead of the original range.Name the rescaled variables `*_pomp`.
 
+## I had trouble with this and did it two ways. I tried to rescale the variables after having mutated in the previod question, but it didn't add them into the new data set. So in my first chunk of code below, I made the total scores and then piped those into the rescale and it worked. Then I tried it a different way where I assigned the pomp values into a new data set, 'pomp_data', and it worked. I feel like there's probably an easier way to do this, so I'm eager to get some feedback.
+
+new_data<-data %>%
+  rowwise() %>% 
+  mutate(
+    .id = id,
+    green_total = mean(c_across(green1:green5), na.rm = TRUE),
+    comp_total = mean(c_across(comp1:comp10), na.rm = TRUE),
+    intel_total = mean(c_across(intel1:intel10), na.rm = TRUE),
+    open_total = mean(c_across(open1:open10), na.rm = TRUE),
+    .before = everything()
+  ) %>% 
+  mutate(
+  green_pomp=rescale(green_total, from= c(1,5), to = c(0, 100)),
+  comp_pomp=rescale(comp_total, from= c(1,5), to = c(0, 100)),
+  intel_pomp=rescale(intel_total, from= c(1,5), to = c(0, 100)),
+  open_pomp=rescale(open_total, from= c(1,5), to = c(0, 100))
+  )
+
+summary(new_data)  
+
+pomp_data<-new_data %>% 
+  mutate(
+  green_pomp=rescale(green_total, from= c(1,5), to = c(0, 100)),
+  comp_pomp=rescale(comp_total, from= c(1,5), to = c(0, 100)),
+  intel_pomp=rescale(intel_total, from= c(1,5), to = c(0, 100)),
+  open_pomp=rescale(open_total, from= c(1,5), to = c(0, 100))
+  )
   
-     
+summary(pomp_data)  
 ```
 
 
