@@ -133,12 +133,28 @@ summary(pomp_data)
 
 
 ```{r question 4}
-##4. Make plots that illustrate the distributions of the 4 POMP-scored variables.
+##4. Makpe plots that illustrate the distributions of the 4 POMP-scored variables.
 
+green_plot<- ggplot(pomp_data, aes(x=green_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+green_plot
 
+comp_plot<- ggplot(pomp_data, aes(x=comp_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+comp_plot
 
+intel_plot<- ggplot(pomp_data, aes(x=intel_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+intel_plot
+
+open_plot<- ggplot(pomp_data, aes(x=open_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+open_plot
 ```
- 
+
+Intel and open look to follow a normal distribution. Green seems negatively skewed, and comp seems very clustered around 50, having more of a leptokurtic distribution.
+
+All four variables seem to have some outliers that may need to be addressed. 
  
 ``` {r question 5}
 ##  5. Make scatterplots showing the relationships between **green reputation** and each personality trait.
