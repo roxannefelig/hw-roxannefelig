@@ -135,6 +135,25 @@ summary(pomp_data)
 ```{r question 4}
 ##4. Makpe plots that illustrate the distributions of the 4 POMP-scored variables.
 
+
+## I created a grid plot to see each variable side by side, but then made individual plots to be able to better see outliers plotted.
+
+pomp_only<-pomp_data %>% 
+  select(.id, green_pomp,comp_pomp,intel_pomp, open_pomp)
+
+plot_data<-melt(pomp_only,
+                   value.name = "score",
+                   variable.name = "POMP_var"
+)
+
+q4_graph<- ggplot(plot_data)+
+  aes(x=score)+
+  facet_grid(~POMP_var)+
+  geom_histogram(binwidth = .5)
+
+q4_graph
+  
+
 green_plot<- ggplot(pomp_data, aes(x=green_pomp)) +
             geom_histogram(binwidth = .5,colour="black", fill="white")
 green_plot
@@ -158,6 +177,7 @@ All four variables seem to have some outliers that may need to be addressed.
  
 ``` {r question 5}
 ##  5. Make scatterplots showing the relationships between **green reputation** and each personality trait.
+
 ##Include trend lines for **students** and **non-students**. What do these plots show?
 
 
@@ -170,7 +190,7 @@ All four variables seem to have some outliers that may need to be addressed.
 ```  
   
   
-``` {r question 8}  
+``` {r question 7}  
 ## 7. Compute a summary table of means, SDs, medians, minima, and maxima for the four total scores for students and non-students.
 
 
