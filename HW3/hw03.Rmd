@@ -247,13 +247,26 @@ ggplot(na.omit(q5_data)) +
 
 ```  
 
-The distributions for students and non-students seem similar, although there seem to be more data points for students, and theres seem to be more scores clustered around the mean. There also seem to be some student outliers, which I noted in a previous graph aws well, who are scoring 0 on green reputation.   
+The distributions for students and non-students seem similar, although there seem to be more data points for students, and there's seem to be more scores clustered around the mean. There also seem to be some student outliers, which I noted in a previous graph aws well, who are scoring 0 on green reputation.   
   
 ``` {r question 7}  
 ## 7. Compute a summary table of means, SDs, medians, minima, and maxima for the four total scores for students and non-students.
 
 
+q5_descriptives<-q5_data %>% 
+  group_by(student) %>% 
+  summarize(across(c(green_pomp:open_pomp),
+            list (Mean = ~ mean(.x, na.rm = TRUE),
+                SD = ~ sd(.x, na.rm = TRUE),
+                Median = ~ median(.x, na.rm = TRUE),
+                Min = ~ min(.x, na.rm = TRUE),
+                Max = ~ max(.x, na.rm = TRUE)
+            )))
 
+descriptives<-as.data.frame(q5_descriptives)
+
+descriptives
+                                                       
 ```
   
 In your assignment, prepare an RMarkdown file that includes both the coding and (for 4-7) narrative descriptions of your results.
