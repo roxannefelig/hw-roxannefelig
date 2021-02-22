@@ -3,9 +3,9 @@ title: "HW3"
 author: "Roxanne Felig"
 date: "2/8/2021"
 output:
-    github_document: default
     html_document:
         theme: paper
+    github_document: default
 ---
 # Homework 03
 
