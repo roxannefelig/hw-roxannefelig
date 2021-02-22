@@ -269,4 +269,4 @@ descriptives
                                                        
 ```
   
-In your assignment, prepare an RMarkdown file that includes both the coding and (for 4-7) narrative descriptions of your results.
+Mean values and SDs for both students and non-students seem consistent across variables. Where we seem to see differences are in the minimum values, which is consistent with the graphs I created. The only variable that seems to have a clear difference is Openness, and that is just in regard to the SD, indicating a bit more spread for students than non-students.
