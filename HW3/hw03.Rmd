@@ -128,7 +128,6 @@ pomp_data<-new_data %>%
   open_pomp=rescale(open_total, from= c(1,5), to = c(0, 100))
   )
   
-summary(pomp_data)  
 ```
 
 
@@ -180,6 +179,44 @@ All four variables seem to have some outliers that may need to be addressed.
 
 ##Include trend lines for **students** and **non-students**. What do these plots show?
 
+## 1= not student, 2= student. I believe theres a way to do a panel graph where green rep is the y axis and there are three side by side scatter-plots, but I could not figure it out. 
+
+
+q5_data<- pomp_data %>% 
+  select(.id, green_pomp,comp_pomp,intel_pomp, open_pomp,student)
+
+q5_data$student<- as.factor(q5_data$student)
+
+# corr between green and comp
+
+green_comp <- ggplot(q5_data) +
+  aes(x = green_pomp,
+      y = comp_pomp, 
+      color = student
+      ) +
+  geom_point()+
+  geom_smooth(aes(group=student))
+
+
+# corr between green and intel
+
+green_intel <- ggplot(q5_data) +
+  aes(x = green_pomp,
+      y = intel_pomp, 
+      color = student
+      ) +
+  geom_point()+
+  geom_smooth(aes(group=student))
+
+# corr between green and open
+
+green_open <- ggplot(q5_data) +
+  aes(x = green_pomp,
+      y = open_pomp, 
+      color = student
+      ) +
+  geom_point()+
+  geom_smooth(aes(group=student))
 
 ```
      
