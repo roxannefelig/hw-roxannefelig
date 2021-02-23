@@ -45,7 +45,7 @@ lotr
 
 ```{r}
 lotr_wide %>% 
-  pivot_longer(FILL_THIS_IN = FILL_THIS_IN, 
-               names_to  = FILL_THIS_IN, 
-               values_to = FILL_THIS_IN)
+  pivot_longer(cols = c(Elf:Man), 
+               names_to  = "species", 
+               values_to = "Words")
 ```
