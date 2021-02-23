@@ -3,6 +3,8 @@ title: "Exercises: Univariate pivoting"
 output: 
   html_document:
     theme: paper
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -28,15 +30,15 @@ lotr
 
 1. Would you say this data is in tidy format?
 
-   <!-- Describe why or why not in this space. -->
+  Yes, there's one observation per row, each column is a variable, and each cell is a value.
 
-2. Widen the data so that we see the words spoken by each species, by putting species as its own column.
+2. Widen the data so that we see the words spoken by each species, by putting each species as its own column.
 
 ```{r}
 (lotr_wide <- lotr %>% 
-  pivot_wider(FILL_THIS_IN = c(-Species, -Words), 
-              FILL_THIS_IN = Species, 
-              FILL_THIS_IN = Words))
+  pivot_wider(id_cols = c(-Species, -Words), 
+              names_from = Species, 
+              values_from = Words))
 ```
 
 3. Re-lengthen the wide LOTR data from Question 2 above.
