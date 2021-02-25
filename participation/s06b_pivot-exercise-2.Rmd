@@ -82,7 +82,8 @@ family %>%
         names_sep = "_",
         values_to = "score") %>%
 filter(is.na(w2)) %>% 
-  select(family_id)
+  select(family_id) %>% 
+  unique()
 ``` 
 
 Question: Is is easier to easier to find the missing data in the wide or long format?
