@@ -64,7 +64,10 @@ print(family_longest)
 
 ```{r}
 family_long <- family %>% 
-  pivot_longer()
+  pivot_longer(cols = -family_id,
+               names_to = c("wave", ".value", "family_member"),
+               names_sep = "_",
+               values_to = "score")
 
 print(family_long)
 ```
