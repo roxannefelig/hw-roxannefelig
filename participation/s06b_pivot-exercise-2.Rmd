@@ -3,6 +3,8 @@ title: "Exercises: Multivariate pivoting"
 output: 
   html_document:
     theme: paper
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -47,7 +49,10 @@ family %>%
 
 ```{r}
 family_longest <- family %>% 
-  pivot_longer()
+  pivot_longer(cols = -family_id,
+               names_to = c("wave", "scale", "family_member"),
+               names_sep = "_",
+               values_to = "score")
 
 print(family_longest)
 ```
