@@ -1,0 +1,270 @@
+---
+title: "HW3"
+author: "Roxanne Felig"
+date: "2/8/2021"
+output:
+    html_document:
+        theme: paper
+    github_document: default
+---
+# Homework 03
+
+You will analyze data looking at the relationship between **green reputation** and three personality traits--**compassion**, **intellectual curiosity**, and **openness to experiences**.
+The dataset includes data from **students** and **non-students**.
+
+```{r}
+dictionary <- readr::read_csv("/Users/roxannefelig/Desktop/progdata/hw-roxannefelig/HW3/green_dictionary.csv")
+green_data <- readr::read_csv("/Users/roxannefelig/Desktop/progdata/hw-roxannefelig/HW3/green_data.csv")
+
+library(tidyverse)
+library(dplyr)
+library(psych)
+library(naniar)
+library(reshape2)
+library(scales)
+```
+
+```{r view files}
+View(dictionary)
+View(green_data)
+
+```
+
+
+```{r question 1}
+###1. Inspect the item responses (e.g., with graphs or by summarizing distinct values). Is anything unusual?
+
+str(green_data)
+summary(green_data) #I notice that some missing values are coded as NA while others are coded as -99, so I'm going to re-code the -99s as NAs.
+
+data<-green_data %>% 
+  mutate_at(vars(comp1:student),
+         ~ifelse(. == -99, NA, .)
+  )
+
+summary(data) #now we see that the min values for variables are 1, not -99.
+
+melt_data<-melt(data) #collapses data to one column
+View(melt_data)
+
+#plotting using the melted data and the facet wrap will allow us to see histograms for each scale item, and the frequency of each response choice.
+
+ggplot(melt_data)+
+  aes(x=value)+
+  geom_histogram()+
+  facet_wrap(~variable, 
+             scales="free")
+```
+
+
+```{r question 2}
+### 2. Compute total scores for the four scales. Recode variables as needed.
+
+#First, we need to reverse code items as indicated in the dictionary. The reverse coded items are green2,comp6:comp10, intel7:intel10,and open7:open10. 
+#two ways to reverse code shown below:
+
+reversed1<- c("green2", "comp6", "comp7","comp8","comp9","comp10","intel7",
+             "intel8","intel9","intel10","open7","open8","open9","open10")
+
+reversed2 <- dictionary %>%
+  filter(Keying == -1) %>%
+  pull(Item)     
+     
+data %>%
+  mutate(
+    across(all_of(reversed2),
+           ~ recode(.x, "5" = 1, "4" = 2, "3" = 3, "2" = 4, "1" = 5),
+           .names = "{.col}r")
+  )
+
+#total scores
+summary(data)
+View(data)
+
+#we will use the row wise function for this so that we can create total scores for each person.
+
+new_data<-data %>%
+  rowwise() %>% 
+  mutate(
+    .id = id,
+    green_total = mean(c_across(green1:green5), na.rm = TRUE),
+    comp_total = mean(c_across(comp1:comp10), na.rm = TRUE),
+    intel_total = mean(c_across(intel1:intel10), na.rm = TRUE),
+    open_total = mean(c_across(open1:open10), na.rm = TRUE),
+    .before = everything()
+  ) 
+
+summary(new_data)
+```   
+
+```{r question 3}  
+##3 Rescale the variables so that they go from 0-100 instead of the original range.Name the rescaled variables `*_pomp`.
+
+## I had trouble with this and did it two ways. I tried to rescale the variables after having mutated in the previod question, but it didn't add them into the new data set. So in my first chunk of code below, I made the total scores and then piped those into the rescale and it worked. Then I tried it a different way where I assigned the pomp values into a new data set, 'pomp_data', and it worked. I feel like there's probably an easier way to do this, so I'm eager to get some feedback.
+
+new_data<-data %>%
+  rowwise() %>% 
+  mutate(
+    .id = id,
+    green_total = mean(c_across(green1:green5), na.rm = TRUE),
+    comp_total = mean(c_across(comp1:comp10), na.rm = TRUE),
+    intel_total = mean(c_across(intel1:intel10), na.rm = TRUE),
+    open_total = mean(c_across(open1:open10), na.rm = TRUE),
+    .before = everything()
+  ) %>% 
+  mutate(
+  green_pomp=rescale(green_total, from= c(1,5), to = c(0, 100)),
+  comp_pomp=rescale(comp_total, from= c(1,5), to = c(0, 100)),
+  intel_pomp=rescale(intel_total, from= c(1,5), to = c(0, 100)),
+  open_pomp=rescale(open_total, from= c(1,5), to = c(0, 100))
+  )
+
+summary(new_data)  
+
+pomp_data<-new_data %>% 
+  mutate(
+  green_pomp=rescale(green_total, from= c(1,5), to = c(0, 100)),
+  comp_pomp=rescale(comp_total, from= c(1,5), to = c(0, 100)),
+  intel_pomp=rescale(intel_total, from= c(1,5), to = c(0, 100)),
+  open_pomp=rescale(open_total, from= c(1,5), to = c(0, 100))
+  )
+  
+```
+
+
+```{r question 4}
+##4. Makpe plots that illustrate the distributions of the 4 POMP-scored variables.
+
+
+## I created a grid plot to see each variable side by side, but then made individual plots to be able to better see outliers plotted.
+
+pomp_only<-pomp_data %>% 
+  select(.id, green_pomp,comp_pomp,intel_pomp, open_pomp)
+
+plot_data<-melt(pomp_only,
+                   value.name = "score",
+                   variable.name = "POMP_var"
+)
+
+q4_graph<- ggplot(plot_data)+
+  aes(x=score)+
+  facet_grid(~POMP_var)+
+  geom_histogram(binwidth = .5)
+
+q4_graph
+  
+
+green_plot<- ggplot(pomp_data, aes(x=green_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+green_plot
+
+comp_plot<- ggplot(pomp_data, aes(x=comp_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+comp_plot
+
+intel_plot<- ggplot(pomp_data, aes(x=intel_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+intel_plot
+
+open_plot<- ggplot(pomp_data, aes(x=open_pomp)) +
+            geom_histogram(binwidth = .5,colour="black", fill="white")
+open_plot
+```
+
+Intel and open look to follow a normal distribution. Green seems negatively skewed, and comp seems very clustered around 50, having more of a leptokurtic distribution.
+
+All four variables seem to have some outliers that may need to be addressed. 
+ 
+``` {r question 5}
+##  5. Make scatterplots showing the relationships between **green reputation** and each personality trait.
+
+##Include trend lines for **students** and **non-students**. What do these plots show?
+
+## 1= not student, 2= student. I believe theres a way to do a panel graph where green rep is the y axis and there are three side by side scatter-plots, but I could not figure it out. 
+
+
+q5_data<- pomp_data %>% 
+  select(.id, green_pomp,comp_pomp,intel_pomp, open_pomp,student)
+
+q5_data$student<- as.factor(q5_data$student)
+
+# corr between green and comp
+
+green_comp <- ggplot(q5_data) +
+  aes(x = green_pomp,
+      y = comp_pomp, 
+      color = student
+      ) +
+  geom_point()+
+  geom_smooth(aes(group=student))
+
+
+# corr between green and intel
+
+green_intel <- ggplot(q5_data) +
+  aes(x = green_pomp,
+      y = intel_pomp, 
+      color = student
+      ) +
+  geom_point()+
+  geom_smooth(aes(group=student))
+
+# corr between green and open
+
+green_open <- ggplot(q5_data) +
+  aes(x = green_pomp,
+      y = open_pomp, 
+      color = student
+      ) +
+  geom_point()+
+  geom_smooth(aes(group=student))
+
+```
+
+The relationship between green reputation and compassion seems to be similar for students and non-students. Green reputation and intellectual curiosity show different patters for students versus non-students; students show a positive relationship, with non-students showing a slightly negative or possibly non-relationship. For green reputation and openness, some student outliers who scored zero on green reputation seem to be impacting the trend line. It seems like students and non-students follow a similar pattern here, though.
+     
+     
+``` {r question 6}     
+## 6. Compare **green reputation** for students and non-students using a **rainfall plot** (bar + density + data points).
+  
+ggplot(na.omit(q5_data)) +
+  aes(y = student,
+      x = green_pomp,
+      fill = student,
+      color = student) +
+  geom_jitter(height = .15) +
+  geom_boxplot(color = "black",
+               alpha = .5,
+               width = .1,
+               size = .5) +
+  ggdist::stat_slab(height = .3,
+                    color = "black",
+                    size = .2,
+                    alpha = .5,
+                    position = position_nudge(y = .2))
+
+```  
+
+The distributions for students and non-students seem similar, although there seem to be more data points for students, and there's seem to be more scores clustered around the mean. There also seem to be some student outliers, which I noted in a previous graph aws well, who are scoring 0 on green reputation.   
+  
+``` {r question 7}  
+## 7. Compute a summary table of means, SDs, medians, minima, and maxima for the four total scores for students and non-students.
+
+
+q5_descriptives<-q5_data %>% 
+  group_by(student) %>% 
+  summarize(across(c(green_pomp:open_pomp),
+            list (Mean = ~ mean(.x, na.rm = TRUE),
+                SD = ~ sd(.x, na.rm = TRUE),
+                Median = ~ median(.x, na.rm = TRUE),
+                Min = ~ min(.x, na.rm = TRUE),
+                Max = ~ max(.x, na.rm = TRUE)
+            )))
+
+descriptives<-as.data.frame(q5_descriptives)
+
+descriptives
+                                                       
+```
+  
+Mean values and SDs for both students and non-students seem consistent across variables. Where we seem to see differences are in the minimum values, which is consistent with the graphs I created. The only variable that seems to have a clear difference is Openness, and that is just in regard to the SD, indicating a bit more spread for students than non-students.
