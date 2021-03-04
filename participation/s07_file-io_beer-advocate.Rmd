@@ -53,3 +53,12 @@ dat <- read_csv(
 dat$`Average ABV`<- as.numeric(dat$`Average ABV`)
 str(dat)
 ```
+
+```{r 2}
+g<- ggplot(dat, aes(x=dat$`Average ABV`, y=dat$rAVG))+
+  geom_point()+
+  xlab("Average ABV")+
+  ylab("Quality")
+g
+
+```
