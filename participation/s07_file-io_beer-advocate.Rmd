@@ -65,10 +65,11 @@ g
 
 ```{r 4}
 summarytable=dat %>% 
-  summarize(across(c(`Average ABV`:rAVG)),
+  summarize(across(c(`Average ABV`:rAVG),
           list(
           mu= ~mean(.x, na.rm=TRUE),
-          sd= ~sd(.x, na.rm=TRUE),
-          r= cor (`Average ABV`, rAVG, use= "pairwise"))
+          sd= ~sd(.x, na.rm=TRUE))),
+          r= cor (`Average ABV`, rAVG, use= "pairwise")
   )
+summarytable
 ```
