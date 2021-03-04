@@ -6,6 +6,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
 ```
 
 For this activity, download the data file at this location to the `data` subfolder in your `participation` folder. 
@@ -13,7 +15,16 @@ This dataset contains information about different catagories of beer as rated on
 The data are originally from [here](http://scottjanish.com/relationship-of-abv-to-beer-scores/).
 
 ```{r}
+if ( !dir.exists( here::here("participation", "data") ) ) {
+  dir.create( here::here("participation", "data"), recursive = TRUE )
+}
+
 url <- "https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/data/beer-advocate.csv"
+download.file(
+  url, 
+  here::here("participation", "data", "beer.xls"), 
+  mode = "wb"
+)
 ```
 
 The dataset contains 3 variables:
