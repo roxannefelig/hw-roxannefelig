@@ -2,12 +2,14 @@
 title: "Beer Advocate: ABV and quality ratings"
 author: "Your Name Here"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-
+library(readxl)
 ```
 
 For this activity, download the data file at this location to the `data` subfolder in your `participation` folder. 
@@ -22,10 +24,11 @@ if ( !dir.exists( here::here("participation", "data") ) ) {
 url <- "https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/data/beer-advocate.csv"
 download.file(
   url, 
-  here::here("participation", "data", "beer.xls"), 
+  here::here("participation", "data", "beer.csv"), 
   mode = "wb"
 )
 ```
+
 
 The dataset contains 3 variables:
 
@@ -41,3 +44,12 @@ You should write a script to do the following:
   3. Make a figure illustrating the relationship between ABV and beer quality.
   4. Compute a summary table with the mean and SD of each variable, along with their correlation.
   5. Describe the results.
+  
+```{r 1}
+dat <- read_csv(
+  here::here("participation", "data", "beer.csv")
+)
+
+dat$`Average ABV`<- as.numeric(dat$`Average ABV`)
+str(dat)
+```
