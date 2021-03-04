@@ -45,7 +45,7 @@ You should write a script to do the following:
   4. Compute a summary table with the mean and SD of each variable, along with their correlation.
   5. Describe the results.
   
-```{r 1}
+```{r 2}
 dat <- read_csv(
   here::here("participation", "data", "beer.csv")
 )
@@ -54,11 +54,21 @@ dat$`Average ABV`<- as.numeric(dat$`Average ABV`)
 str(dat)
 ```
 
-```{r 2}
+```{r 3}
 g<- ggplot(dat, aes(x=dat$`Average ABV`, y=dat$rAVG))+
   geom_point()+
   xlab("Average ABV")+
   ylab("Quality")
 g
+```
 
+
+```{r 4}
+summarytable=dat %>% 
+  summarize(across(c(`Average ABV`:rAVG)),
+          list(
+          mu= ~mean(.x, na.rm=TRUE),
+          sd= ~sd(.x, na.rm=TRUE),
+          r= cor (`Average ABV`, rAVG, use= "pairwise"))
+  )
 ```
