@@ -3,9 +3,9 @@ title: "HW4"
 author: "Roxanne Felig"
 date: "3/8/2021"
 output:
-    github_document: default
     html_document:
         theme: paper
+    github_document: default
 ---
 
 ```{r setup, include=FALSE}
