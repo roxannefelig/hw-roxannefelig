@@ -23,12 +23,11 @@ sm_currency <- read_excel(here::here("Final_Project/data/sm_currency.xlsx"))
 View(sm_currency)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r data structure}
+str(sm_currency)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+As we can tell, the structure is very bad!! There are also several variables that I will not need for the sake of analyses, such as "RepsonseID", "RecipientFirstName", etc. 
+
+Making plots or tables at this time won't be useful due to the way the data are structured. More about how it should be structured can be found in the 'readme' document.
