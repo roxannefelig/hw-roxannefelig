@@ -3,22 +3,46 @@ title: "Beautifying RMarkdown"
 author: "Your Name Here"
 date: "1990-05-31"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(ggplot2)
+library(dplyr)
 ```
 
 ## The Surprising Truth about `mpg`
 
 ### `mpg`: The Figure
 
-Add a code chunk that uses the `ggplot2::mpg` dataset to plot `displ` against `hwy` (highway mpg), with points colored by `manufacturer` and shaped by `year`.
+```{r mpg} 
+##Add a code chunk that uses the `ggplot2::mpg` dataset to plot `displ` against `hwy` (highway mpg), with points colored by `manufacturer` and shaped by `year`.
+
+plot<-ggplot2::mpg %>% 
+  ggplot+ 
+  (aes(x=displ, y=hwy, color=manufacturer, shape=as.factor(year)))+
+  geom_point()
+
+plot
+```
 
 ### `mpg`: The Table
 
 Add a second code chunk that gives a summary table with the **mean** and **sd** for `displ` and `hwy` for each year.
 
+```{r}
+table<- ggplot2::mpg %>% 
+  group_by(year) %>% 
+  summarize(across(c(displ,hwy),
+            list(
+            mean = ~mean(.x, na.rm=TRUE),
+            sd= ~sd(.x, na.rm=TRUE))))
+  
+table
+
+```
 Around each piece of output, add a brief description.
 
 We will examine how various options change the rendered HTML output.
