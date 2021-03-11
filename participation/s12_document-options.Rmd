@@ -41,7 +41,6 @@ table<- ggplot2::mpg %>%
             sd= ~sd(.x, na.rm=TRUE))))
   
 table
-
 ```
 Around each piece of output, add a brief description.
 
@@ -237,9 +236,9 @@ To render such output, set the `results` option to `'asis'`.
 Try it out! 
 Add `results='asis'` to this chunk and see how the output changes.
 
-```{r try out 'asis' output}
+```{r try out asis output, results= 'asis'}
 cat("$$
-\operatorname{mpg} = \alpha + \beta_{1}(\operatorname{cyl}) + \beta_{2}(\operatorname{disp}) + \epsilon
+\\operatorname{mpg} = \\alpha + \\beta_{1}(\\operatorname{cyl}) + \\beta_{2}(\\operatorname{disp}) + \\epsilon
 $$")
 ```
 
