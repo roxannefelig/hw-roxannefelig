@@ -73,7 +73,7 @@ scented %>%
         shape=as.factor(CandleID),
         color=as.factor(CandleID),
         fill= as.factor(CandleID))) + 
-         geom_point(alpha=.3) +
+         geom_point(alpha=.3, shape=1) +
          scale_x_date(date_breaks = "6 months", date_labels = "%m-%Y") +
   geom_smooth(method = "loess") +
   geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), linetype="dashed")
