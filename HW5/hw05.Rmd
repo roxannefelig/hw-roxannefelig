@@ -3,6 +3,11 @@ title: "Consequences of Covid-19 for Candle Critiques"
 author: "Roxanne Felig"
 date: "3/22/2021"
 output: html_document
+  code_folding: hide
+  highlight: tango
+  theme: lumen
+editor_options: 
+  chunk_output_type: console
 ---
 
 For this assignment, you will produce a report exploring the impact of Covid-19 on scented candle ratings.
@@ -26,9 +31,12 @@ Each dataset contains the following information for the Top 3 selling scented or
   4. `Review`: For the scented candles, the text of the review.
 
 ```{r setup, include=FALSE}
+library(tidyverse)
 library(dplyr)
+library(readxl)
+scented<- read_excel("~/Desktop/progdata/hw-roxannefelig/HW5/Scented_all.xlsx")
+unscented<-read_excel("~/Desktop/progdata/hw-roxannefelig/HW5/Unscented_all.xlsx")
 ```
-
 
 ## Part 1: Average daily ratings for scented and unscented candles
 
@@ -56,6 +64,19 @@ Interpret these graphs.
 What do they show about scented candles over the time period?
 
 ```{r}
+scented %>% 
+  filter(Date > as.Date("2017-01-01")) %>% 
+  group_by(Date) %>% 
+  mutate(mean_rating= mean(Rating)) %>% 
+  ggplot(
+    aes(x=as.Date(Date), y=mean_rating,
+        shape=as.factor(CandleID),
+        color=as.factor(CandleID),
+        fill= as.factor(CandleID))) + 
+         geom_point(alpha=.3) +
+         scale_x_date(date_breaks = "6 months", date_labels = "%m-%Y") +
+  geom_smooth(method = "loess") +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), linetype="dashed")
 
 ```
 
