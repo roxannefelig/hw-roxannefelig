@@ -74,9 +74,36 @@ scented %>%
         color=as.factor(CandleID),
         fill= as.factor(CandleID))) + 
          geom_point(alpha=.3, shape=1) +
-         scale_x_date(date_breaks = "6 months", date_labels = "%m-%Y") +
+      scale_x_date(date_breaks = "6 months", date_labels = "%m-%Y") +
   geom_smooth(method = "loess") +
-  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), linetype="dashed")
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), linetype="dashed")+
+  theme_minimal()+
+  scale_fill_discrete(name="Candle Type")+
+  guides(color=FALSE)+
+  scale_y_continuous(name="Rating")+
+  xlab("Date") + 
+  ggtitle("Rating of Scented Amazon Candles Over Time")
+
+
+unscented %>% 
+  filter(Date > as.Date("2017-01-01")) %>% 
+  group_by(Date) %>% 
+  mutate(mean_rating= mean(Rating)) %>% 
+  ggplot(
+    aes(x=as.Date(Date), y=mean_rating,
+        shape=as.factor(CandleID),
+        color=as.factor(CandleID),
+        fill= as.factor(CandleID))) + 
+         geom_point(alpha=.3, shape=1) +
+      scale_x_date(date_breaks = "6 months", date_labels = "%m-%Y") +
+  geom_smooth(method = "loess") +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), linetype="dashed")+
+  theme_minimal()+
+  scale_fill_discrete(name="Candle Type")+
+  guides(color=FALSE)+
+  scale_y_continuous(name="Rating")+
+  xlab("Date") + 
+  ggtitle("Rating of Unscented Amazon Candles Over Time")
 
 ```
 
