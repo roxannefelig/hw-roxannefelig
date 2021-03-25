@@ -121,14 +121,33 @@ Distinguish scented versus unscented candles using color, shape, and line type (
 
 ```{r combine datasets, eval=FALSE}
 candles_full <- bind_rows(
-	scented = candeles_scented, 
-	unscented = candeles_unscented, 
+	scented = scented, 
+	unscented = unscented, 
 	.id = "Scented"
 )
 ```
 
 ```{r}
-
+  candles_full %>% 
+  filter(Date > as.Date("2017-01-01")) %>% 
+  group_by(Date) %>% 
+  mutate(mean_rating= mean(Rating)) %>% 
+  ggplot(
+    aes(x=as.Date(Date), y=mean_rating,
+        shape=as.factor(Scented),
+        color=as.factor(Scented),
+        fill= as.factor(Scented))) + 
+         geom_point(alpha=.3, shape=1) +
+      scale_x_date(date_breaks = "6 months", date_labels = "%m-%Y") +
+  geom_smooth(method = "loess") +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-20")), linetype="dashed")+
+  theme_minimal()+
+  scale_fill_discrete(name="Candle Type")+
+  guides(color=FALSE)+
+  scale_y_continuous(name="Rating")+
+  xlab("Date") + 
+  theme(axis.text.x = element_text(angle = 45))+
+  ggtitle("Rating of Amazon Candles Over Time")
 ```
 
 Which of these two sets of plots do you find easier to interpret?
