@@ -14,7 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## HW4
 
-In this assignment, I'll be importing my final project dataset and exploring the structure. I am hesitant to do anayslses yet/make plots because this dataset needs to be *heavily* modified before the data can properly be analyzed.
+In this assignment, I'll be importing my final project dataset and exploring the structure. I am hesitant to do analyses yet/make plots because this dataset needs to be *heavily* modified before the data can properly be analyzed.
+
+<!-- WDG: You could maybe do a graph of the duration in seconds? -->
 
 
 ```{r data}
