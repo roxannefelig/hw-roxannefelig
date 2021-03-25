@@ -34,6 +34,7 @@ Each dataset contains the following information for the Top 3 selling scented or
 library(tidyverse)
 library(dplyr)
 library(readxl)
+library(gridExtra)
 scented<- read_excel("~/Desktop/progdata/hw-roxannefelig/HW5/Scented_all.xlsx")
 unscented<-read_excel("~/Desktop/progdata/hw-roxannefelig/HW5/Unscented_all.xlsx")
 ```
@@ -64,7 +65,8 @@ Interpret these graphs.
 What do they show about scented candles over the time period?
 
 ```{r}
-scented %>% 
+plot1 <- 
+  scented %>% 
   filter(Date > as.Date("2017-01-01")) %>% 
   group_by(Date) %>% 
   mutate(mean_rating= mean(Rating)) %>% 
@@ -82,10 +84,11 @@ scented %>%
   guides(color=FALSE)+
   scale_y_continuous(name="Rating")+
   xlab("Date") + 
+  theme(axis.text.x = element_text(angle = 45))+
   ggtitle("Rating of Scented Amazon Candles Over Time")
 
-
-unscented %>% 
+plot2 <-
+  unscented %>% 
   filter(Date > as.Date("2017-01-01")) %>% 
   group_by(Date) %>% 
   mutate(mean_rating= mean(Rating)) %>% 
@@ -103,7 +106,10 @@ unscented %>%
   guides(color=FALSE)+
   scale_y_continuous(name="Rating")+
   xlab("Date") + 
+  theme(axis.text.x = element_text(angle = 45))+
   ggtitle("Rating of Unscented Amazon Candles Over Time")
+
+grid.arrange(plot1, plot2, ncol=2)
 
 ```
 
