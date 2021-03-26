@@ -1,0 +1,33 @@
+---
+title: "HW4"
+author: "Roxanne Felig"
+date: "3/8/2021"
+output:
+    html_document:
+        theme: paper
+    github_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## HW4
+
+In this assignment, I'll be importing my final project dataset and exploring the structure. I am hesitant to do anayslses yet/make plots because this dataset needs to be *heavily* modified before the data can properly be analyzed.
+
+
+```{r data}
+library(readxl)
+sm_currency <- read_excel(here::here("Final_Project/data/sm_currency.xlsx"))
+View(sm_currency)
+```
+
+
+```{r data structure}
+str(sm_currency)
+```
+
+As we can tell, the structure is very bad!! There are also several variables that I will not need for the sake of analyses, such as "RepsonseID", "RecipientFirstName", etc. 
+
+Making plots or tables at this time won't be useful due to the way the data are structured. More about how it should be structured can be found in the 'readme' document.
