@@ -84,7 +84,7 @@ plot1 <-
   guides(color=FALSE)+
   scale_y_continuous(name="Rating")+
   xlab("Date") + 
-  theme(axis.text.x = element_text(angle = 45))+
+  theme(axis.text.x = element_text(angle = 30))+
   ggtitle("Rating of Scented Amazon Candles Over Time")
 
 plot2 <-
@@ -106,7 +106,7 @@ plot2 <-
   guides(color=FALSE)+
   scale_y_continuous(name="Rating")+
   xlab("Date") + 
-  theme(axis.text.x = element_text(angle = 45))+
+  theme(axis.text.x = element_text(angle = 30))+
   ggtitle("Rating of Unscented Amazon Candles Over Time")
 
 grid.arrange(plot1, plot2, ncol=2)
@@ -146,7 +146,7 @@ candles_full <- bind_rows(
   guides(color=FALSE)+
   scale_y_continuous(name="Rating")+
   xlab("Date") + 
-  theme(axis.text.x = element_text(angle = 45))+
+  theme(axis.text.x = element_text(angle = 30))+
   ggtitle("Rating of Amazon Candles Over Time")
 ```
 
