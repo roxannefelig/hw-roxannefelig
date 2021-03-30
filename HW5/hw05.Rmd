@@ -1,5 +1,5 @@
 ---
-title: "Consequences of Covid-19 for Candle Critiques"
+title: "Covid-19 and Candles"
 author: "Roxanne Felig"
 date: "3/22/2021"
 output: 
@@ -94,7 +94,7 @@ candles_full <- bind_rows(
 ```
 
 ```{r}
-  candles_full %>% 
+candles_full %>% 
   filter(Date > as.Date("2017-01-01")) %>% 
   group_by(Date, Scented) %>% 
   summarize(mu = mean(Rating)) %>% 
