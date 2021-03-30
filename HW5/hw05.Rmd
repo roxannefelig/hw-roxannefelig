@@ -2,12 +2,12 @@
 title: "Covid-19 and Candles"
 author: "Roxanne Felig"
 date: "3/22/2021"
-output: 
-  html_document:
-  theme: lumen
-  highlight: tango
-  code_folding: hide
-github_document: default
+output:
+ github_document: default
+ html_document:
+    code_folding: hide
+    highlight: breezedark
+    theme: cerulean
 ---
 
 This assignment explores the impact of Covid-19 on scented candle ratings. As we now know, loss of taste and smell is a prevalent symptom associated with Covid-19. However, early on in the pandemic it was not recognized as an official symptom. By exploring the online ratings and reviews of scented candles as a metric of loss of smell, we can investigate the Covid-19 timeline in the United States.
