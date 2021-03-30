@@ -85,7 +85,7 @@ _Combined plot_
 
 Now, the two datasets have been combined into one, so that the trend lines for scented and unscented candles can be plotted on the same graph. 
 
-```{r combine datasets, eval=FALSE}
+```{r combine datasets}
 candles_full <- bind_rows(
 	scented = scented, 
 	unscented = unscented, 
