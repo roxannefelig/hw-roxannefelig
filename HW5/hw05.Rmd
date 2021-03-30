@@ -2,12 +2,11 @@
 title: "Consequences of Covid-19 for Candle Critiques"
 author: "Roxanne Felig"
 date: "3/22/2021"
-output: html_document
-  code_folding: hide
-  highlight: tango
+output: 
+  html_document:
   theme: lumen
-editor_options: 
-  chunk_output_type: console
+  highlight: tango
+  code_folding: hide
 github_document: default
 ---
 
