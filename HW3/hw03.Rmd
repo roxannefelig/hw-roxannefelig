@@ -14,18 +14,18 @@ The dataset includes data from **students** and **non-students**.
 
 ```{r}
 dictionary <- readr::read_csv("/Users/roxannefelig/Desktop/progdata/hw-roxannefelig/HW3/green_dictionary.csv")
-green_data <- readr::read_csv("/Users/roxannefelig/Desktop/progdata/hw-roxannefelig/HW3/green_data.csv")
+green_data <- readr::read_csv("/Users/roxannefelig/Desktop/progdata/hw-roxannefelig/HW3/green_data.csv") # BMW: Always use here::here() and local files instead. Your document does not knit for me because you used an absolute path that's on your computer but not mine.
 
 library(tidyverse)
 library(dplyr)
 library(psych)
 library(naniar)
-library(reshape2)
+library(reshape2) # BMW: Use tidyr, not reshape2. You should avoid reshape2
 library(scales)
 ```
 
 ```{r view files}
-View(dictionary)
+View(dictionary) # BMW: Do not leave View() calls in your final script.
 View(green_data)
 
 ```
@@ -34,7 +34,7 @@ View(green_data)
 ```{r question 1}
 ###1. Inspect the item responses (e.g., with graphs or by summarizing distinct values). Is anything unusual?
 
-str(green_data)
+str(green_data) 
 summary(green_data) #I notice that some missing values are coded as NA while others are coded as -99, so I'm going to re-code the -99s as NAs.
 
 data<-green_data %>% 
@@ -45,15 +45,17 @@ data<-green_data %>%
 summary(data) #now we see that the min values for variables are 1, not -99.
 
 melt_data<-melt(data) #collapses data to one column
-View(melt_data)
+View(melt_data) # BMW: You should switch to using pivot_longer() instead of melt(). melt() is no longer being developed--bugs won't get fixed.
 
 #plotting using the melted data and the facet wrap will allow us to see histograms for each scale item, and the frequency of each response choice.
+
+# BMW: You should write your narrative discussions as regular markdown text, not code comments
 
 ggplot(melt_data)+
   aes(x=value)+
   geom_histogram()+
   facet_wrap(~variable, 
-             scales="free")
+             scales="free") 
 ```
 
 
@@ -102,7 +104,11 @@ summary(new_data)
 
 ## I had trouble with this and did it two ways. I tried to rescale the variables after having mutated in the previod question, but it didn't add them into the new data set. So in my first chunk of code below, I made the total scores and then piped those into the rescale and it worked. Then I tried it a different way where I assigned the pomp values into a new data set, 'pomp_data', and it worked. I feel like there's probably an easier way to do this, so I'm eager to get some feedback.
 
-new_data<-data %>%
+# BMW: I'm not sure what you mean by the above comment. The only reason the result of a mutated data frame wouldn't be added to the data frame would be if you didn't assign the result.
+# 
+# BMW: That said, what you did below is what I would do
+
+new_data<-data %>% # BMW: You have already made new_data above, so I'm not sure what this first part is for
   rowwise() %>% 
   mutate(
     .id = id,
@@ -119,7 +125,9 @@ new_data<-data %>%
   open_pomp=rescale(open_total, from= c(1,5), to = c(0, 100))
   )
 
-summary(new_data)  
+summary(new_data)
+
+# BMW: You have already done this above, so not sure why you're repeating?
 
 pomp_data<-new_data %>% 
   mutate(
