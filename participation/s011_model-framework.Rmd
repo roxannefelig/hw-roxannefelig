@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # The Model-Fitting Paradigm in R
 
 ## Today
@@ -544,12 +549,17 @@ Then, you graphically explored those relationships.
 
 Now, let's supplement those exploratory analyses with some formal linear models. 
 
-
+```{r data import}
+library(readr)
+green_data
+```
 1. How do students and non-students differ on green reputation?
 
 Answer this question by fitting a model using student as a predictor, then
 (a) plotting the raw data with confidence distributions for each group mean, and
 (b) presenting a table of group means and confidence intervals.
+
+
 
 
 2. Which trait shows the strongest relationship with green reputation?
