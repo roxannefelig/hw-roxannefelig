@@ -10,7 +10,9 @@ This is a folder for hosting and posting my final project Programming with Data.
 
 :sparkles: About this project :sparkles:
 
-My goal with this project is to predict the extent to which images of women on social media are perceived as sexualized as a function of posture and revealing clothing. My main goal is to re-structure the data file to allow me to do the proper EMA analayses.
+This project explores the relationship between self-objectification (the extent to which an individual takes an observer's perspective of their own body), body awareness (awareness and ability to recognize internal bodily states), and intuitive eating (an eating style based on physiological hunger and satiety cues). Previous research has found relationships between self-objectification and body awareness, self-objectification and intuitive eating, and body awareness and intuitive eating, but to my knowledge no research explores the relationship between the three constructs. 
+
+I have collected correlational data from both undergraduates in the SONA participant pool which will test a mediational model, whereby self-objectification reduces intuitive eating, mediated by reduced body awareness. For this project, I will be cleaning the data set, reverse scoring items, creating summary scores, and wil begin to explore the data.
 
 **Data Organization**
 
