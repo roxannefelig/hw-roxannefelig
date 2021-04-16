@@ -1,0 +1,35 @@
+---
+title: "Final Project"
+author: "Roxanne Felig"
+date: "4/16/2021"
+output:
+    html_document:
+        theme: paper
+    github_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Final Project Introduction
+
+```{r load packages}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+library(psych)
+library(naniar)
+library(reshape2)
+library(scales)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
