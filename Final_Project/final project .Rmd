@@ -6,6 +6,8 @@ output:
     html_document:
         theme: paper
     github_document: default
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -13,6 +15,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Final Project Introduction
+This project explores the relationship between self-objectification (the extent to which an individual takes an observer's perspective of their own body), body awareness (awareness and ability to recognize internal bodily states), and intuitive eating (an eating style based on physiological hunger and satiety cues). Previous research has found relationships between self-objectification and body awareness, self-objectification and intuitive eating, and body awareness and intuitive eating, but to my knowledge no research explores the relationship between the three constructs. 
+
+I have collected correlational data from both undergraduates in the SONA participant pool which will test a mediational model, whereby self-objectification reduces intuitive eating, mediated by reduced body awareness. For this project, I will be cleaning the data set, reverse scoring items, creating summary scores, and will begin to explore the data.
+
 
 ```{r load packages}
 library(readxl)
@@ -22,14 +28,45 @@ library(psych)
 library(naniar)
 library(reshape2)
 library(scales)
+library(data.table)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+``` {r import data}
+ie.data <- read_excel(here::here("Final_Project/data/IA_IE.xlsx"))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Data Cleaning
+
+First order of business is to rename variables so that I can easily use them. The self-objectification variables are named appropriately (e.g., SO1-SO14), but the other variable names are not intuitively named. 
+
+The re-coding scheme will be as follows:
+
+Q18-Q25 are the body shame items and will be re-named BS1-BS8. BS 5 and 7 will then be reverse-scored before computing average scores. 
+
+Q27_1 through Q27_19 **with the exception of Q27_11 which is an attention check** will be re-coded as BAQ1-BAQ18 (measure of body awareness). Items will be reverse coded and sub-scale averages as well as grand average will be computed. 
+
+Q28_1 through Q28_24 **with the exception of Q28_13 which is an attention check** will be coded as eat_1-eat_23 (measure of intuitive eating). Reverse coded items will be scored and an average score will be computed. 
+
+Q34 will become age
+
+Q36-sex (coded as 1=female, 2=male, 3= neither describes me)
+
+Q38-gender (coded as 1=woman, 2=,man, 3=trans-woman, 4= trans-man, 5=nb, 6= self-describe, 7= prefer not to say)
+
+Q48- race(coded as 1=Non-Hispanic White, European American, 2= Black, Afro-Caribbean, African American, 3=East Asian, Pacific Islander, Asian American, 4= Latina, Latino, Hispanic American, 5=South Asian, Central Asian, Indian American, 6=Middle Eastern, Arab American, 7= Alaskan Native, Native American, 8=Biracial, Multiracial, 9= other)
+
+```{r re-name body shame and body awareness items}
+setnames(ie.data, old = c('Q18','Q19','Q20', 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q27_1','Q27_2','Q27_3', 'Q27_4', 'Q27_5', 'Q27_6','Q27_7', 'Q27_8', 'Q27_9', 'Q27_10', 'Q27_11', 'Q27_12','Q27_13', 'Q27_14', 'Q27_15', 'Q27_16', 'Q27_17', 'Q27_18', 'Q27_19'), 
+         new =c('BS1','BS2','BS3', 'BS4','BS5', 'BS6', 'BS7', 'BS8','BAQ1','BAQ2','BAQ3', 'BAQ4','BAQ5', 'BAQ6', 'BAQ7', 'BAQ8', 'BAQ9','BAQ10', 'Attn_check2', 'BAQ11', 'BAQ12', 'BAQ13', 'BAQ14', 'BAQ15','BAQ16', 'BAQ17', 'BAQ18'))
+```
+
+``````{r re-name intuitive eating items}
+
+setnames(ie.data, old = c(''), 
+         new =c(''))
+
+
+
+
+
+```
