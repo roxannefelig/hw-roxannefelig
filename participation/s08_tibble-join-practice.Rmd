@@ -83,8 +83,9 @@ missing_parent<-anti_join(child2, parent2, by="family_id")
    (Hint: You might need to look at Wave 1 as well.)
    
 ```{r missing both}
-missing_both<-anti_join(missing_child,missing_parent,by="family_id")
-
+full_wave1<- full_join(child1,parent1, by="family_id", suffix=c(".child1",".parent1"))
+full_wave2<- full_join(child2,parent2, by="family_id", suffix=c(".child2",".parent2"))
+missing_both<-anti_join (full_wave1,full_wave2,by="family_id")
 ```
    
 6. You would like to send an email to the families that have missing data.
@@ -92,6 +93,14 @@ missing_both<-anti_join(missing_child,missing_parent,by="family_id")
    Create columns to indicate which people in the family are missing data.
    The ID columns have different names in the two datasets.
    You can manage that by specifying `by` with something like: `by = c("id.x" = "id.y")`
+   
+```{r email list}   
+
+
+
+
+```
+   
    
 7. Create a long-format dataset by row-binding the four datasets.
    Indicate the wave and person the data come from with columns named `wave` and `person`.
