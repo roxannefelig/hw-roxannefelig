@@ -51,6 +51,13 @@ child_merge<-inner_join(child1, child2, by = "family_id", suffix=c(".1", ".2"))
    Keep only participants that have child ratings, whether or not they have parent data.
    Indicate which person the data came from by setting the `suffix` argument.
    
+```{r merge parent and child}
+
+child_parent_merge<- left_join(child2, parent2, by = "family_id", suffix=c(".child", ".parent"))
+
+```
+   
+   
 3. Merge the four datasets into one full dataset.
    Keep all participants.
    Indicate which wave and person the data came from by setting the `suffix` argument.
