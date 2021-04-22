@@ -42,9 +42,7 @@ emails<-read_csv(here::here("participation/family-communication_emails.csv"))
    Indicate which wave the data came from by setting the `suffix` argument.
    
 ```{r merge child}
-
-
-
+child_merge<-inner_join(child1, child2, by = "family_id", suffix=c(".1", ".2"))
 
 ```
    
