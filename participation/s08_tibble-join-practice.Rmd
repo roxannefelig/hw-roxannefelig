@@ -24,9 +24,30 @@ You also have a list of email addresses for each family in `family-communication
 
 Import the datasets into R, then do the following:
 
+```{r setup, include=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readxl)
+
+child1<- read_csv(here::here("participation/family-communication_w1_child.csv"))
+child2<-read_csv(here::here("participation/family-communication_w2_child.csv"))
+parent1<-read_csv(here::here("participation/family-communication_w1_parent.csv"))
+parent2<-read_csv(here::here("participation/family-communication_w2_parent.csv"))
+emails<-read_csv(here::here("participation/family-communication_emails.csv"))
+```
+
+
 1. Merge the two wave of child data together.
    Keep only participants with complete data in both waves.
    Indicate which wave the data came from by setting the `suffix` argument.
+   
+```{r merge child}
+
+
+
+
+```
+   
    
 2. For Wave 2, merge the parent and child data together.
    Keep only participants that have child ratings, whether or not they have parent data.
