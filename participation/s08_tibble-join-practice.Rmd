@@ -62,6 +62,13 @@ child_parent_merge<- left_join(child2, parent2, by = "family_id", suffix=c(".chi
    Keep all participants.
    Indicate which wave and person the data came from by setting the `suffix` argument.
    
+```{r merge all}
+full_child<- full_join(child1, child2, by = "family_id", suffix=c(".child1", ".child2"))
+full_parent<-full_join(parent1, parent2, by = "family_id", suffix=c(".parent1", ".parent2"))
+full_all<-full_join(full_child, full_parent, by = "family_id")
+```
+   
+   
 4. There is some missing data in Wave 2. 
    Which families have parent data but not child data in Wave 2?
    Which families have child data but not parent data in Wave 2?
