@@ -68,13 +68,24 @@ full_parent<-full_join(parent1, parent2, by = "family_id", suffix=c(".parent1", 
 full_all<-full_join(full_child, full_parent, by = "family_id")
 ```
    
-   
 4. There is some missing data in Wave 2. 
    Which families have parent data but not child data in Wave 2?
    Which families have child data but not parent data in Wave 2?
 
+```{r id missing data}
+
+missing_child<- anti_join(parent2,child2, by="family_id")
+missing_parent<-anti_join(child2, parent2, by="family_id")
+
+```
+
 5. Which families are missing both parent and child data in Wave 2?
    (Hint: You might need to look at Wave 1 as well.)
+   
+```{r missing both}
+missing_both<-anti_join(missing_child,missing_parent,by="family_id")
+
+```
    
 6. You would like to send an email to the families that have missing data.
    Merge one or more of the tables from above with the emails dataset to create a mailing list.
