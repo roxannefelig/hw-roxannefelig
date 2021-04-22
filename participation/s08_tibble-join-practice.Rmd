@@ -95,7 +95,7 @@ missing_both<-anti_join (full_wave1,full_wave2,by="family_id")
    You can manage that by specifying `by` with something like: `by = c("id.x" = "id.y")`
    
 ```{r email list}   
-
+emails$id<-emails$family_id
 
 
 
