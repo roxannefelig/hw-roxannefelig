@@ -119,7 +119,7 @@ ie_full<-ie_clean %>%
 
 ```{r descriptive plots}
 avg_scores<-ie_full %>% 
-  select(Q54,self_obj,bod_shame,bod_aware,eating)
+  select(self_obj,bod_shame,bod_aware,eating)
 
 plot_data<-melt(avg_scores,
                 value.name = "score",
@@ -151,7 +151,8 @@ eating_plot<-ggplot(avg_scores,aes(x=eating))+
 eating_plot
 ```
 
-```{r}
+```{r correlation}
 
+cor(avg_scores, method = "pearson",use = "complete.obs")
 
 ```
