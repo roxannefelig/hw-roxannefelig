@@ -156,3 +156,15 @@ eating_plot
 cor(avg_scores, method = "pearson",use = "complete.obs")
 
 ```
+
+```{r label factor levels}
+ie_full$gender <- factor(ie_full$gender,
+levels = c(1,2,3,4,5,6,7),
+labels = c("woman", "man", "transwoman","transman", "nb","self-describe","not say"))
+
+ie_full$sex <- factor(ie_full$sex,
+levels = c(1,2,3),
+labels = c("female", "male", "neither describe me"))
+
+
+```
