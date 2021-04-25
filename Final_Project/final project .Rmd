@@ -97,8 +97,30 @@ ie.data %>%
   )
 ```
 
-
+#Q27_11,Q28_13, Attn1
 ```{r move attn check items}
+ie_clean<-ie.data %>% 
+  relocate(Attn1, .after="Q54") %>% 
+  relocate(Attn_check2, .after="Attn1") %>% 
+  relocate(Q28_13, .after= "Attn_check2")
+```
+
+
+```{r summary scores}
+ie_full<-ie_clean %>%
+  rowwise() %>% 
+  mutate(
+    self_obj=mean(c_across(SO1:SO14), na.rm=TRUE),
+    bod_shame=mean(c_across(BS1:BS8), na.rm = TRUE),
+    bod_aware=mean(c_across(BAQ1:BAQ18),na.rm = TRUE),
+    eating=mean(c_across(eat_1:eat_23),na.rm = TRUE),
+    .before = everything()
+  )
+
+```
+
+```{r descriptive plots}
+
 
 
 ```
