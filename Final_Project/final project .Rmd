@@ -61,12 +61,18 @@ setnames(ie.data, old = c('Q18','Q19','Q20', 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 
 ```
 
 ``````{r re-name intuitive eating items}
-
-setnames(ie.data, old = c(''), 
-         new =c(''))
-
-
-
-
+setnames(ie.data, old = c('Q28_1','Q28_2','Q28_3','Q28_4','Q28_5','Q28_6','Q28_7','Q28_8',
+'Q28_9', 'Q28_10','Q28_11','Q28_12','Q28_14','Q28_15','Q28_16','Q28_17','Q28_18','Q28_19',
+'Q28_20','Q28_21','Q28_22','Q28_23','Q28_24'), 
+         new =c('eat_1','eat_2','eat_3','eat_4','eat_5','eat_6','eat_7','eat_8','eat_9',
+'eat_10','eat_11','eat_12','eat_13','eat_14','eat_15', 'eat_16', 'eat_17','eat_18','eat_19',
+'eat_20','eat_21','eat_22','eat_23'))
 
 ```
+
+```{r rename demos}
+setnames(ie.data, old = c('Q34','Q36','Q38','Q48'),
+         new =c('age','sex','gender','race'))
+
+```
+
