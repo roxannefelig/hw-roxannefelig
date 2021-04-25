@@ -166,5 +166,14 @@ ie_full$sex <- factor(ie_full$sex,
 levels = c(1,2,3),
 labels = c("female", "male", "neither describe me"))
 
+```
+
+```{r descriptive by gender}
+women_only<-ie_full %>% 
+  filter(gender=='woman' & Attn1==4 & Attn_check2==2 & Q28_13==4) %>% 
+  select(c(self_obj:eating))
+
+cor(women_only, method = "pearson",use = "complete.obs")
+
 
 ```
