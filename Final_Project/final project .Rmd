@@ -76,3 +76,29 @@ setnames(ie.data, old = c('Q34','Q36','Q38','Q48'),
 
 ```
 
+
+```{r reverse code}
+reversed1<- c("BS5","BS7","BAQ10")
+
+ie.data %>%
+  mutate(
+    across(all_of(reversed1),
+           ~ recode(.x, "7" = 1, "6" = 2, "5" = 3, "4" = 4, "3" = 5,"2"= 6, "1" = 7),
+           .names = "{.col}r")
+  )
+
+reversed2<-c("eat_1","eat_2","eat_3", "eat_7","eat_8","eat_9","eat_10")
+
+ie.data %>%
+  mutate(
+    across(all_of(reversed2),
+           ~ recode(.x, "5" = 1, "4" = 2, "3" = 3, "2" = 4, "1" = 5),
+           .names = "{.col}r")
+  )
+```
+
+
+```{r move attn check items}
+
+
+```
