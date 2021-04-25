@@ -64,9 +64,7 @@ setnames(ie.data, old = c('Q18','Q19','Q20', 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 
 setnames(ie.data, old = c('Q28_1','Q28_2','Q28_3','Q28_4','Q28_5','Q28_6','Q28_7','Q28_8',
 'Q28_9', 'Q28_10','Q28_11','Q28_12','Q28_14','Q28_15','Q28_16','Q28_17','Q28_18','Q28_19',
 'Q28_20','Q28_21','Q28_22','Q28_23','Q28_24'), 
-         new =c('eat_1','eat_2','eat_3','eat_4','eat_5','eat_6','eat_7','eat_8','eat_9',
-'eat_10','eat_11','eat_12','eat_13','eat_14','eat_15', 'eat_16', 'eat_17','eat_18','eat_19',
-'eat_20','eat_21','eat_22','eat_23'))
+         new =c('eat_1','eat_2','eat_3','eat_4','eat_5','eat_6','eat_7','eat_8','eat_9','eat_10','eat_11','eat_12','eat_13','eat_14','eat_15', 'eat_16', 'eat_17','eat_18','eat_19','eat_20','eat_21','eat_22','eat_23'))
 
 ```
 
@@ -79,17 +77,14 @@ setnames(ie.data, old = c('Q34','Q36','Q38','Q48'),
 
 ```{r reverse code}
 reversed1<- c("BS5","BS7","BAQ10")
+reversed2<-c("eat_1","eat_2","eat_3", "eat_7","eat_8","eat_9","eat_10")
 
-ie.data %>%
+ie_reverse<-ie.data %>%
   mutate(
     across(all_of(reversed1),
            ~ recode(.x, "7" = 1, "6" = 2, "5" = 3, "4" = 4, "3" = 5,"2"= 6, "1" = 7),
            .names = "{.col}r")
-  )
-
-reversed2<-c("eat_1","eat_2","eat_3", "eat_7","eat_8","eat_9","eat_10")
-
-ie.data %>%
+  ) %>%
   mutate(
     across(all_of(reversed2),
            ~ recode(.x, "5" = 1, "4" = 2, "3" = 3, "2" = 4, "1" = 5),
@@ -99,7 +94,7 @@ ie.data %>%
 
 #Q27_11,Q28_13, Attn1
 ```{r move attn check items}
-ie_clean<-ie.data %>% 
+ie_clean<-ie_reverse %>% 
   relocate(Attn1, .after="Q54") %>% 
   relocate(Attn_check2, .after="Attn1") %>% 
   relocate(Q28_13, .after= "Attn_check2")
@@ -120,7 +115,35 @@ ie_full<-ie_clean %>%
 ```
 
 ```{r descriptive plots}
+avg_scores<-ie_full %>% 
+  select(self_obj,bod_shame,bod_aware,eating)
+
+plot_data<-melt(avg_scores,
+                value.name = "score",
+                variable.name = "variable"
+    )
+
+g<- ggplot(plot_data)+
+  aes(x=score)+
+  facet_grid(~variable)+
+  geom_histogram(binwidth = .5)
+
+g
 
 
+so_plot<-ggplot(avg_scores,aes(x=self_obj))+
+  geom_histogram(binwidth = .5,colour="black", fill="white")
+so_plot
 
+bodshame_plot<-ggplot(avg_scores,aes(x=bod_shame))+
+  geom_histogram(binwidth = .5,colour="black", fill="white")
+bodshame_plot
+
+bodaware_plot<-ggplot(avg_scores,aes(x=bod_aware))+
+  geom_histogram(binwidth = .5,colour="black", fill="white")
+bodaware_plot
+
+eating_plot<-ggplot(avg_scores,aes(x=eating))+
+  geom_histogram(binwidth = .5,colour="black", fill="white")
+eating_plot
 ```
