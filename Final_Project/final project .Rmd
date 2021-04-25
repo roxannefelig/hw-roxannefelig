@@ -68,7 +68,7 @@ setnames(ie.data, old = c('Q28_1','Q28_2','Q28_3','Q28_4','Q28_5','Q28_6','Q28_7
 
 ```
 
-```{r rename demos}
+```{r rename demographic vars}
 setnames(ie.data, old = c('Q34','Q36','Q38','Q48'),
          new =c('age','sex','gender','race'))
 
@@ -92,12 +92,12 @@ ie_reverse<-ie.data %>%
   )
 ```
 
-#Q27_11,Q28_13, Attn1
+
 ```{r move attn check items}
 ie_clean<-ie_reverse %>% 
   relocate(Attn1, .after="Q54") %>% 
   relocate(Attn_check2, .after="Attn1") %>% 
-  relocate(Q28_13, .after= "Attn_check2")
+  relocate(Q28_13, .after= "Attn_check2") ##moved the three attn check var to the end so that i can more easily summarize across variables 
 ```
 
 
@@ -107,7 +107,7 @@ ie_full<-ie_clean %>%
   mutate(
     .id=Q54,
     self_obj=mean(c_across(SO1:SO14), na.rm=TRUE),
-    bod_shame=mean(c(BS1, BS2,BS3,BS4,BS5r,BS6, BS7r,BS8), na.rm = TRUE),
+    bod_shame=mean(c(BS1, BS2,BS3,BS4,BS5r,BS6, BS7r,BS8), na.rm = TRUE), ##couldn't just summarize across because the reverse coded items ended up at the end of the data set
     bod_aware=mean(c(BAQ1,BAQ2,BAQ3,BAQ4,BAQ5,BAQ6,BAQ7,BAQ8,BAQ9,BAQ10r,
     BAQ11,BAQ12,BAQ13,BAQ14,BAQ15,BAQ16,BAQ17,BAQ18),na.rm = TRUE),
     eating=mean(c(eat_1r,eat_2r,eat_3r,eat_4,eat_5,eat_6,eat_7r,eat_8r,eat_9r,eat_10r,
@@ -119,7 +119,7 @@ ie_full<-ie_clean %>%
 
 ```{r descriptive plots}
 avg_scores<-ie_full %>% 
-  select(self_obj,bod_shame,bod_aware,eating)
+  select(self_obj,bod_shame,bod_aware,eating) ##subset with just variables of interest
 
 plot_data<-melt(avg_scores,
                 value.name = "score",
