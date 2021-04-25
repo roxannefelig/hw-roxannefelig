@@ -168,12 +168,20 @@ labels = c("female", "male", "neither describe me"))
 
 ```
 
-```{r descriptive by gender}
+```{r correlations for women}
 women_only<-ie_full %>% 
   filter(gender=='woman' & Attn1==4 & Attn_check2==2 & Q28_13==4) %>% 
   select(c(self_obj:eating))
 
 cor(women_only, method = "pearson",use = "complete.obs")
+```
 
+
+```{r correlations for men}
+men_only<-ie_full %>% 
+  filter(gender=='man' & Attn1==4 & Attn_check2==2 & Q28_13==4) %>% 
+  select(c(self_obj:eating))
+
+cor(men_only, method = "pearson",use = "complete.obs")
 
 ```
