@@ -105,10 +105,13 @@ ie_clean<-ie_reverse %>%
 ie_full<-ie_clean %>%
   rowwise() %>% 
   mutate(
+    .id=Q54,
     self_obj=mean(c_across(SO1:SO14), na.rm=TRUE),
-    bod_shame=mean(c_across(BS1:BS8), na.rm = TRUE),
-    bod_aware=mean(c_across(BAQ1:BAQ18),na.rm = TRUE),
-    eating=mean(c_across(eat_1:eat_23),na.rm = TRUE),
+    bod_shame=mean(c(BS1, BS2,BS3,BS4,BS5r,BS6, BS7r,BS8), na.rm = TRUE),
+    bod_aware=mean(c(BAQ1,BAQ2,BAQ3,BAQ4,BAQ5,BAQ6,BAQ7,BAQ8,BAQ9,BAQ10r,
+    BAQ11,BAQ12,BAQ13,BAQ14,BAQ15,BAQ16,BAQ17,BAQ18),na.rm = TRUE),
+    eating=mean(c(eat_1r,eat_2r,eat_3r,eat_4,eat_5,eat_6,eat_7r,eat_8r,eat_9r,eat_10r,
+    eat_11,eat_12, eat_13, eat_14, eat_15, eat_16, eat_17, eat_18, eat_19, eat_20,  eat_21,eat_22, eat_23),na.rm = TRUE),
     .before = everything()
   )
 
@@ -116,7 +119,7 @@ ie_full<-ie_clean %>%
 
 ```{r descriptive plots}
 avg_scores<-ie_full %>% 
-  select(self_obj,bod_shame,bod_aware,eating)
+  select(Q54,self_obj,bod_shame,bod_aware,eating)
 
 plot_data<-melt(avg_scores,
                 value.name = "score",
@@ -146,4 +149,9 @@ bodaware_plot
 eating_plot<-ggplot(avg_scores,aes(x=eating))+
   geom_histogram(binwidth = .5,colour="black", fill="white")
 eating_plot
+```
+
+```{r}
+
+
 ```
