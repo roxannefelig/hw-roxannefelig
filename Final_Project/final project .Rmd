@@ -183,5 +183,4 @@ men_only<-ie_full %>%
   select(c(self_obj:eating))
 
 cor(men_only, method = "pearson",use = "complete.obs")
-
 ```
