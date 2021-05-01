@@ -3,9 +3,9 @@ title: "Final Project"
 author: "Roxanne Felig"
 date: "4/16/2021"
 output:
+    github_document: default
     html_document:
         theme: paper
-    github_document: default
 editor_options: 
   chunk_output_type: console
 ---
