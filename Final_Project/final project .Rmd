@@ -11,7 +11,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## Final Project Introduction
@@ -20,7 +20,7 @@ This project explores the relationship between self-objectification (the extent 
 I have collected correlational data from both undergraduates in the SONA participant pool which will test a mediational model, whereby self-objectification reduces intuitive eating, mediated by reduced body awareness. For this project, I will be cleaning the data set, reverse scoring items, creating summary scores, and will begin to explore the data.
 
 
-```{r load packages}
+```{r load packages, include=FALSE}
 library(readxl)
 library(tidyverse)
 library(dplyr)
@@ -29,6 +29,8 @@ library(naniar)
 library(reshape2)
 library(scales)
 library(data.table)
+library(Hmisc)
+library(corrplot)
 ```
 
 ``` {r import data}
@@ -37,9 +39,7 @@ ie.data <- read_excel(here::here("Final_Project/data/IA_IE.xlsx"))
 
 ## Data Cleaning
 
-First order of business is to rename variables so that I can easily use them. The self-objectification variables are named appropriately (e.g., SO1-SO14), but the other variable names are not intuitively named. 
-
-The re-coding scheme will be as follows:
+First order of business is to rename variables so that I can easily use them. The self-objectification variables are named appropriately (e.g., SO1-SO14), but the other variable names are not intuitively named.The re-coding scheme will be as follows:
 
 Q18-Q25 are the body shame items and will be re-named BS1-BS8. BS 5 and 7 will then be reverse-scored before computing average scores. 
 
@@ -53,14 +53,17 @@ Q36-sex (coded as 1=female, 2=male, 3= neither describes me)
 
 Q38-gender (coded as 1=woman, 2=,man, 3=trans-woman, 4= trans-man, 5=nb, 6= self-describe, 7= prefer not to say)
 
-Q48- race(coded as 1=Non-Hispanic White, European American, 2= Black, Afro-Caribbean, African American, 3=East Asian, Pacific Islander, Asian American, 4= Latina, Latino, Hispanic American, 5=South Asian, Central Asian, Indian American, 6=Middle Eastern, Arab American, 7= Alaskan Native, Native American, 8=Biracial, Multiracial, 9= other)
+Q48- race.
 
-```{r re-name body shame and body awareness items}
+Using setnames, I will recode the body shame and body awareness items first. Below is the corresponding code.
+```{r re-name body shame and body awareness items, echo=TRUE}
 setnames(ie.data, old = c('Q18','Q19','Q20', 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q27_1','Q27_2','Q27_3', 'Q27_4', 'Q27_5', 'Q27_6','Q27_7', 'Q27_8', 'Q27_9', 'Q27_10', 'Q27_11', 'Q27_12','Q27_13', 'Q27_14', 'Q27_15', 'Q27_16', 'Q27_17', 'Q27_18', 'Q27_19'), 
          new =c('BS1','BS2','BS3', 'BS4','BS5', 'BS6', 'BS7', 'BS8','BAQ1','BAQ2','BAQ3', 'BAQ4','BAQ5', 'BAQ6', 'BAQ7', 'BAQ8', 'BAQ9','BAQ10', 'Attn_check2', 'BAQ11', 'BAQ12', 'BAQ13', 'BAQ14', 'BAQ15','BAQ16', 'BAQ17', 'BAQ18'))
 ```
 
-``````{r re-name intuitive eating items}
+Next, I am re-naming the intuitive eating items.
+
+``````{r re-name intuitive eating items,echo=TRUE}
 setnames(ie.data, old = c('Q28_1','Q28_2','Q28_3','Q28_4','Q28_5','Q28_6','Q28_7','Q28_8',
 'Q28_9', 'Q28_10','Q28_11','Q28_12','Q28_14','Q28_15','Q28_16','Q28_17','Q28_18','Q28_19',
 'Q28_20','Q28_21','Q28_22','Q28_23','Q28_24'), 
@@ -68,14 +71,17 @@ setnames(ie.data, old = c('Q28_1','Q28_2','Q28_3','Q28_4','Q28_5','Q28_6','Q28_7
 
 ```
 
-```{r rename demographic vars}
+Lastly, I am re-naming the demographic variables that will be most important for my analyses.
+
+```{r rename demographic vars,echo=TRUE}
 setnames(ie.data, old = c('Q34','Q36','Q38','Q48'),
          new =c('age','sex','gender','race'))
 
 ```
 
+Now I am creating two sets of reverse scored items, grouped by whether or not they are on a scale of 1-5 or 1-7. After grouping them, I created a new data frame including the reverse scored items.
 
-```{r reverse code}
+```{r reverse code,echo=TRUE}
 reversed1<- c("BS5","BS7","BAQ10")
 reversed2<-c("eat_1","eat_2","eat_3", "eat_7","eat_8","eat_9","eat_10")
 
@@ -92,32 +98,39 @@ ie_reverse<-ie.data %>%
   )
 ```
 
+Using the relocate function, I am moving all of the attention check variables to the ends of the data set so that I can more easily summarize across variables.
 
-```{r move attn check items}
+```{r move attn check items,echo=TRUE}
 ie_clean<-ie_reverse %>% 
   relocate(Attn1, .after="Q54") %>% 
   relocate(Attn_check2, .after="Attn1") %>% 
-  relocate(Q28_13, .after= "Attn_check2") ##moved the three attn check var to the end so that i can more easily summarize across variables 
+  relocate(Q28_13, .after= "Attn_check2") 
 ```
 
+While I was able to use c_across to quickly compute a mean score of self-objectification, I realized that in the previous step, the newly reverse coded items were also placed at the end of the data set, making it challenging to use c_across to create average scores.
 
-```{r summary scores}
+```{r summary scores,echo=TRUE}
 ie_full<-ie_clean %>%
   rowwise() %>% 
   mutate(
     .id=Q54,
     self_obj=mean(c_across(SO1:SO14), na.rm=TRUE),
-    bod_shame=mean(c(BS1, BS2,BS3,BS4,BS5r,BS6, BS7r,BS8), na.rm = TRUE), ##couldn't just summarize across because the reverse coded items ended up at the end of the data set
+    bod_shame=mean(c(BS1, BS2,BS3,BS4,BS5r,BS6, BS7r,BS8), na.rm = TRUE), 
     bod_aware=mean(c(BAQ1,BAQ2,BAQ3,BAQ4,BAQ5,BAQ6,BAQ7,BAQ8,BAQ9,BAQ10r,
     BAQ11,BAQ12,BAQ13,BAQ14,BAQ15,BAQ16,BAQ17,BAQ18),na.rm = TRUE),
-    eating=mean(c(eat_1r,eat_2r,eat_3r,eat_4,eat_5,eat_6,eat_7r,eat_8r,eat_9r,eat_10r,
-    eat_11,eat_12, eat_13, eat_14, eat_15, eat_16, eat_17, eat_18, eat_19, eat_20,  eat_21,eat_22, eat_23),na.rm = TRUE),
+    eating=mean(c(eat_1r,eat_2r,eat_3r,eat_4,eat_5,eat_6,eat_7r,eat_8r,eat_9r,
+    eat_10r, eat_11,eat_12, eat_13, eat_14, eat_15, eat_16, eat_17, eat_18, eat_19,
+    eat_20, eat_21,eat_22, eat_23),na.rm = TRUE),
     .before = everything()
   )
 
 ```
 
-```{r descriptive plots}
+## Data Exploring
+
+Now that I have my average scores of interest, I am creating a subset of data using the select function to simplify my data set. I am plotting each variable to see how the distributions look.  
+
+```{r descriptive plots, warning=FALSE, message=FALSE}
 avg_scores<-ie_full %>% 
   select(self_obj,bod_shame,bod_aware,eating) ##subset with just variables of interest
 
@@ -135,27 +148,44 @@ g
 
 
 so_plot<-ggplot(avg_scores,aes(x=self_obj))+
-  geom_histogram(binwidth = .5,colour="black", fill="white")
+  geom_histogram(binwidth = .5,colour="black", fill="white")+
+  xlab("Self-objectification")
 so_plot
 
 bodshame_plot<-ggplot(avg_scores,aes(x=bod_shame))+
-  geom_histogram(binwidth = .5,colour="black", fill="white")
+  geom_histogram(binwidth = .5,colour="black", fill="white")+
+  xlab("Body Shame")
 bodshame_plot
 
 bodaware_plot<-ggplot(avg_scores,aes(x=bod_aware))+
-  geom_histogram(binwidth = .5,colour="black", fill="white")
+  geom_histogram(binwidth = .5,colour="black", fill="white")+
+  xlab("Body Awareness")
 bodaware_plot
 
 eating_plot<-ggplot(avg_scores,aes(x=eating))+
-  geom_histogram(binwidth = .5,colour="black", fill="white")
+  geom_histogram(binwidth = .5,colour="black", fill="white")+
+  xlab("Intuitive Eating")
 eating_plot
 ```
 
+The individual plots are easier to interpret than the side-by-side, given that the side-by-side puts them all on a scale of 1-7 when some are scored from 1-5. Body awareness and intuitive eating appear to be normally distributed, with self-objectification and body shame looking less normal, but not horribly skewed.
+
+## Correlations
+
+Now using my subsetted data, I am going to look at the correlations of all variables of interest. 
+
 ```{r correlation}
 
-cor(avg_scores, method = "pearson",use = "complete.obs")
-
+mydata.rcorr = rcorr(as.matrix(avg_scores))
+mydata.rcorr
+mydata.coeff = mydata.rcorr$r
+mydata.p = mydata.rcorr$P
+corrplot(mydata.coeff)
 ```
+
+Here we see the correlation coefficients, followed by the number of observations, and then the p values. Surprisingly, and contrary to my hypothesis, body awareness is not significantly correlated with self-objectification or body shame. However, these correlations are using the entire sample of participants, with no filters or screening. 
+
+To explore how men and women differ, I need to identify my variable of 'gender' as a factor and label the levels. 
 
 ```{r label factor levels}
 ie_full$gender <- factor(ie_full$gender,
@@ -168,19 +198,38 @@ labels = c("female", "male", "neither describe me"))
 
 ```
 
+Now I'm going to only filter women who passed all three attention checks, and repeat the correlation analysis.
+
 ```{r correlations for women}
 women_only<-ie_full %>% 
   filter(gender=='woman' & Attn1==4 & Attn_check2==2 & Q28_13==4) %>% 
   select(c(self_obj:eating))
 
-cor(women_only, method = "pearson",use = "complete.obs")
+women.rcorr = rcorr(as.matrix(women_only))
+women.rcorr
+women.coeff = women.rcorr$r
+women.p = women.rcorr$P
+corrplot(women.coeff)
 ```
 
+Well, this is surprising. In a sample of 262 women, body awareness is not significantly correlated with self-objectification or body shame. Self-objectification is negatively correlated with intuitive eating, as expected, and body awareness and intuitive eating are positively correlated, as expected. 
+
+Let's so how the men's data look.
 
 ```{r correlations for men}
 men_only<-ie_full %>% 
   filter(gender=='man' & Attn1==4 & Attn_check2==2 & Q28_13==4) %>% 
   select(c(self_obj:eating))
 
-cor(men_only, method = "pearson",use = "complete.obs")
+men.rcorr = rcorr(as.matrix(men_only))
+men.rcorr
+men.coeff = men.rcorr$r
+men.p = men.rcorr$P
+corrplot(men.coeff)
 ```
+
+Here we see a similar pattern whereby body awareness is not significantly correlated with either self-objectification or intuitive eating. 
+
+## Conclusion
+
+Contrary to previous findings, I found no support for a relationship between self-reported level of body awareness and self-objectification. As such, I don't believe my mediation model will work. This finding is surprising given the existing research demonstrating reduces body awareness as a consequence of self-objectification, but it's possible that this construct is difficult to self-report. 
