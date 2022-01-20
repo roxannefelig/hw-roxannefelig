@@ -1,0 +1,29 @@
+---
+title: "Lab 1"
+author: "Roxanne Felig"
+date: "1/20/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(palmerpenguins)
+data<-penguins
+data_tbl<-as_tibble(penguins)
+data_kbl<-kable(data)
+```
+
+```{r}
+library(ggplot2)
+plot<-ggplot(penguins,aes(island))
+plot2<-plot+geom_bar()
+```
+
+```{r}
+mod<-penguins$bill_length_mm~penguins$flipper_length_mm
+plot(mod)
+```
+
