@@ -3,6 +3,8 @@ title: "Lab 02 - Plastic waste"
 author: "Roxanne Fellig"
 date: "1/27/2022"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Load packages and data
@@ -18,6 +20,15 @@ plastic_waste <- read.csv(here::here("data/plastic-waste.csv"))
 ## Exercises
 
 ### Exercise 1
+
+```{r exercise 1}
+ggplot(data = plastic_waste) +
+  aes(x = plastic_waste_per_cap) +
+  geom_histogram(binwidth = 0.2)
+
+plastic_waste %>%
+  filter(plastic_waste_per_cap > 3.5)
+```
 
 Remove this text, and add your answer for Exercise 1 here.
 
