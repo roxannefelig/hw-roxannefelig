@@ -11,6 +11,8 @@ editor_options:
 
 ```{r setup, message=FALSE}
 library(tidyverse)
+library(ggplot2)
+library(dplyr)
 ```
 
 ```{r load-data, message=FALSE}
@@ -33,7 +35,10 @@ plastic_waste %>%
 Remove this text, and add your answer for Exercise 1 here.
 
 ```{r plastic-waste-continent}
-# insert code here
+ggplot(data = plastic_waste) +
+  aes(x = plastic_waste_per_cap) +
+  geom_density(aes(y = after_stat(count),binwidth = 0.2,
+                   color=continent, fill=continent, alpha=.2))
 ```
 
 ### Exercise 2
