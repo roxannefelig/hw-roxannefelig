@@ -22,6 +22,7 @@ Load the **gapminder** and **tidyverse** packages.
 # load your packages here:
 library(tidyverse)
 library(gapminder)
+library(dplyr)
 ```
 
 # Part 1
@@ -61,7 +62,7 @@ select(gapminder, continent, everything())
 
 ```{r}
 # compare
-select(gapminder, continent)
+select(gapminder, cont=continent)
 
 rename(gapminder, cont=continent)
 ##new name comes in front of the equal sign
@@ -73,19 +74,19 @@ rename(gapminder, cont=continent)
 1. Order by year.
 
 ```{r}
-arrange(gapminder, FILL_THIS_IN)
+arrange(gapminder, year)
 ```
 
 2. Order by year, in descending order.
 
 ```{r}
-arrange(gapminder, FILL_THIS_IN)
+arrange(gapminder, -year)
 ```
 
 3. Order by year, then by life expectancy.
 
 ```{r}
-arrange(gapminder, FILL_THIS_IN, FILL_THIS_IN)
+arrange(gapminder, year, lifeExp)
 ``` 
 
 # Back to the Guide
