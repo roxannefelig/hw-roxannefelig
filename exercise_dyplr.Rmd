@@ -105,7 +105,9 @@ Do `select()` Task 1 and `arrange()` Task 3 together with a pipe.
 Select `year`, `lifeExp`, `country` from the `gapminder`, then arrange in order by year and life expectancy.
 
 ```{r}
-
+gapminder |>
+  select(year, lifeExp, country) |>
+  arrange(year, lifeExp)
 ```
 
 
@@ -115,14 +117,15 @@ Select `year`, `lifeExp`, `country` from the `gapminder`, then arrange in order 
 
 ```{r}
 gapminder |>
-  filter(FILL_THIS_IN)
+  filter(pop>1000000000)
 ```
 
 2. Only keep data _from Asia_ with population greater than 100 million.
 
 ```{r}
-gapminder |>
-  filter(FILL_THIS_IN)
+gapminder |>  
+  filter(continent=="Asia" & pop>1000000000)
+##is there a diff between just using a comma versus an &?
 ```
 
 3. Only keep data _from the countries Brazil and China_ with population greater than 100 million.
