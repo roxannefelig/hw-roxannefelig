@@ -125,14 +125,14 @@ gapminder |>
 ```{r}
 gapminder |>  
   filter(continent=="Asia" & pop>1000000000)
-##is there a diff between just using a comma versus an &?
+##can use comma or &
 ```
 
 3. Only keep data _from the countries Brazil and China_ with population greater than 100 million.
 
 ```{r}
 gapminder |>
-  filter(FILL_THIS_IN)
+  filter((country == "Brazil" | country == "China"), pop >1000000000)
 ```
 
 
