@@ -133,6 +133,10 @@ gapminder |>
 ```{r}
 gapminder |>
   filter((country == "Brazil" | country == "China"), pop >1000000000)
+##to reduce length
+gapminder |>
+  filter(country %in% c("Brazil","China"), pop >1000000000)
+
 ```
 
 
@@ -154,7 +158,8 @@ Let's get:
 
 ```{r}
 gapminder |>
-  mutate(FILL_THIS_IN)
+  mutate(grossGDP = gdpPercap*pop,
+         gdpBill= round(grossGDP/1000000000,2))
 ```
 
 Notice the backwards compatibility! No need for loops!
@@ -172,7 +177,11 @@ Example: Suppose Canada's 1952 life expectancy was mistakenly entered as 68.8 in
 
 ```{r}
 gapminder |>
-  mutate(FILL_THIS_IN)
+  mutate(
+    lifeExp= if_else(
+      condition = country == "Canada" & year= 1952, 
+      true = 70,
+      false = lifeExp))
 ```
 
 Your turn: 
